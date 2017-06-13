@@ -1,0 +1,20 @@
+{
+    "id": {
+        "name": "",
+        "image": "",
+        "phone": {
+            "work": "",
+            "private": ""
+        },
+        "mail": {
+            "work": "",
+            "private": ""
+        },
+        "address": {
+            "street": "",
+            "postalcode": ""
+        },
+        "note": "",
+        "favorite": false
+    }
+}

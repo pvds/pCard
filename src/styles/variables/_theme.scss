@@ -1,0 +1,56 @@
+// Paths
+$image-path: "../images";
+$font-path: "../fonts";
+
+// Typography
+$font-base: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$font-code: "monospace", monospace;
+
+$font-weight-base: 400;
+$font-weight-base-strong: 700;
+
+$font-size-base: 1.6rem;
+$font-size-h1: 3.2rem;
+$font-size-h2: 2.8rem;
+$font-size-h3: 2.2rem;
+$font-size-h4: 1.6rem;
+
+$line-height-base: 1.1;
+$line-height: 1.6;
+
+$letter-spacing: 0.1em;
+
+// Colors
+$white: #ffffff;
+$black: #222222;
+$grey-dark: #666666;
+$grey-middle: #999999;
+$grey-light: #f3f3f3;
+
+$body-color: $white;
+$text-color: $grey-dark;
+
+// Layout
+$spacing: 1em;
+$spacing-half: $spacing / 2;
+$spacing-fourth: $spacing / 4;
+$spacing-double: $spacing * 2;
+
+// Grid
+$gutter: 20px;
+$gutter-half: $gutter / 2;
+$gutter-fourth: $gutter / 4;
+$gutter-double: $gutter * 2;
+
+/**
+ * Properties
+ */
+// Border radius
+$border-radius: 4px;
+$border-radius-half: $border-radius / 2;
+$border-radius-double: $border-radius * 2;
+
+// Transitions
+$transition-short: 0.1s;
+$transition-medium: 0.3s;
+$transition-long: 0.9s;

@@ -5,9 +5,11 @@
     },
     "extends": "airbnb",
     "rules": {
-        "no-unused-vars": [1,{"argsIgnorePattern": "pcard"}],
-        "no-undef": 1,
+        "no-unused-vars": 0,
+        "no-undef": 0,
         "no-console": 0,
+        "no-plusplus": 1,
+        "no-param-reassign": [2, { "props": false }],
         "indent": [1, 4]
     }
 }

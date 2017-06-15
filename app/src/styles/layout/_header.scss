@@ -1,5 +1,4 @@
 header#main-header{
-
     @include media(sm-max){
         background: $grey-light;
         color: $grey-dark;
@@ -10,6 +9,6 @@ header#main-header{
         float: left;
         width: $header-width;
         height: 100vh;
-        border-right: 1px solid darken($grey-light, 5);
+        border-right: 1px solid lighten($grey-middle, 15);
     }
 }

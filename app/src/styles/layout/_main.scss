@@ -86,7 +86,7 @@ main {
             margin-left: $contact-list-width;
             height: 100vh;
             position: relative;
-            border-left: 1px solid lighten($grey-middle, 10);
+            border-left: 1px solid lighten($grey-middle, 15);
         }
         #contact-details {
             height: calc(100vh - #{$menu-list-height});

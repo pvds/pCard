@@ -2,7 +2,13 @@
     <header id="contact-details-header">
         <div class="form-control has-image">
             <label for="contact-details-image-field">
-                <?=$contact['image-html']?>
+                <?php if($contact['image-html']){
+                    echo $contact['image-html'];
+                } else { ?>
+                    <!-- By Google, Chromium project [BSD (http://opensource.org/licenses/bsd-license.php)], via Wikimedia Commons -->
+                    <img src='dist/images/avatar-placeholder.jpg' width='64' height='64' srcset='dist/images/avatar-placeholder@2x.jpg 2x'/>
+                    <span id='edit-image-field' class='is-hidden'>add<br/>photo</span>
+                <?php } ?>
             </label>
             <input disabled hidden id="contact-details-image-field" type="file"/>
         </div>

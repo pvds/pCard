@@ -1,16 +1,23 @@
 <?php
 
 function getContactData($single_contact = false, $contact_id = 1){
-    $jsondata = file_get_contents('data/contacts.demo.json');
-    $data = json_decode($jsondata, true);
-    if($single_contact){
-        $contact_data = $data[$contact_id];
-        $contact_data['contact_id'] = $contact_id;
-    } else{
-        $contact_data = $data;
+    $jsondata = file_exists("data/contacts.demo.json") ? file_get_contents('data/contacts.demo.json') : false;
+    if($jsondata){
+        $data = json_decode($jsondata, true);
+        if($single_contact){
+            if(isset($data[$contact_id])){
+                $contact_data = $data[$contact_id];
+                $contact_data['contact_id'] = $contact_id;
+            } else{
+                $contact_data = false;
+            }
+        } else{
+            $contact_data = $data;
+        }
+        return $contact_data;
     }
 
-    return $contact_data;
+    return false;
 }
 
 function getContactList(){
@@ -47,21 +54,19 @@ function showContactList(){
 function getContactDetails(){
     $contact = getContactData(true);
 
-    $image = $contact['image'];
-    if(empty($contact['image'])){
-        $contact['image-html'] = "
-            <!-- By Google, Chromium project [BSD (http://opensource.org/licenses/bsd-license.php)], via Wikimedia Commons -->
-            <img src='dist/images/avatar-placeholder.jpg' width='64' height='64' srcset='dist/images/avatar-placeholder@2x.jpg 2x'/>
-            <span id='edit-image-field' class='is-hidden'>add<br/>photo</span>
-        ";
-    } else{
-        $contact['image-html'] = "
+    if($contact){
+        $image = $contact['image'];
+        if(!empty($contact['image'])){
+            $contact['image-html'] = "
             <img src='dist/images/$image.jpg' width='64' height='64' alt='' srcset='dist/images/$image@2x.jpg 2x'/>
             <span id='edit-image-field' class='is-hidden'>change<br/>photo</span>
         ";
-    }
+        } else{
+            $contact['image-html'] = false;
+        }
 
-    $contact['note-formatted'] = str_replace (array('\r\n', '\r', '\n'), "\r\n", $contact['note']);
+        $contact['note-formatted'] = str_replace (array('\r\n', '\r', '\n'), "\r\n", $contact['note']);
+    }
 
     return $contact;
 }

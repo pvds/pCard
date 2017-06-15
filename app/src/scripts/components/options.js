@@ -27,6 +27,7 @@ const pcard = {
         elementId: 'contact-details',
         fields: {
             selectQuery: '#contact-details input, #contact-details textarea',
+            noteId: 'contact-details-note-field',
         },
     },
 };

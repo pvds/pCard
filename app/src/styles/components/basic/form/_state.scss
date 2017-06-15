@@ -12,5 +12,12 @@ form {
             cursor: pointer;
             color: $blue;
         }
+        input{
+            border-bottom: 1px dotted #dadada;
+        }
+        textarea{
+            border: 1px dotted #dadada;
+            border-radius: $border-radius;
+        }
     }
 }

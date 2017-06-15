@@ -1,7 +1,7 @@
 <!--todo: separate in partials-->
 <!--todo: load contact list and contact details from json file-->
 <!--todo: add svg icon for back button-->
-<!--todo: form: disable autocomplete and use appropriate autocapitalize-->
+<!--todo: form: disable autocomplete, use appropriate autocapitalize, add placeholders-->
 <!--todo: add aria-->
 
 <!doctype html>

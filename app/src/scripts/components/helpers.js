@@ -21,9 +21,9 @@ function ajaxGet(url) {
     });
 }
 
-const autogrow = (el) => {
+const autogrow = (el, padding = 0) => {
     el.style.height = '1px';
-    el.style.height = `${el.scrollHeight}px`;
+    el.style.height = `${el.scrollHeight + padding}px`;
 };
 
 const striped = (filterList) => {

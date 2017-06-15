@@ -40,9 +40,6 @@ pcard.initVars = function () {
     /**
      * pCard vars
      */
-    // Notes textarea
-    this.theme.textarea = document.getElementById(pcard.theme.textareaId);
-
     // Contact detail triggers
     this.triggers.contact.select = document.querySelectorAll(pcard.triggers.contact.selectQuery);
     this.triggers.contact.call = document.getElementById(pcard.triggers.contact.callId);
@@ -60,4 +57,5 @@ pcard.initVars = function () {
     // Form fields
     this.form.element = document.getElementById(pcard.form.elementId);
     this.form.fields.select = document.querySelectorAll(pcard.form.fields.selectQuery);
+    this.form.fields.note = document.getElementById(pcard.form.fields.noteId);
 };

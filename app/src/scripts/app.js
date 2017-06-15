@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
      **/
     pcard.triggers.contact.edit.addEventListener('click', () => editContact(pcard.triggers.contact.select));
     pcard.triggers.contact.save.addEventListener('click', () => saveContact(pcard.triggers.contact.select));
+    pcard.form.fields.note.addEventListener('keyup', () => autogrow(pcard.form.fields.note, 20));
 
     /**
      * Initialize favorite click listener
@@ -39,14 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Set textarea height to content height
      **/
-    autogrow(pcard.theme.textarea);
+    autogrow(pcard.form.fields.note);
 });
 
 window.addEventListener('resize', () => {
     /**
      * Set textarea height to content height
      **/
-    autogrow(document.getElementById(pcard.theme.textareaId));
+    autogrow(pcard.form.fields.note);
 });
 
 window.addEventListener('scroll', () => {

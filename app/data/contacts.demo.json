@@ -1,0 +1,40 @@
+{
+    "1": {
+        "name": "Ben Highcastle",
+        "image": "avatar-1",
+        "phone": {
+            "work": "(085) 760 0233",
+            "private": "(06) 1337 1337"
+        },
+        "mail": {
+            "work": "ben@highcastle.biz",
+            "private": "ben@owned.net"
+        },
+        "address": {
+            "street": "Castlelane 1",
+            "city": "Kingdom 7",
+            "country": "United Kingdoms"
+        },
+        "note": "Being the richest man in the cemetery doesn't matter to me. \\n Going to bed at night saying we've done something wonderful, that's what matters to me. \\n\\n Im convinced that about half of what separates the successful entrepreneurs from the non-successful ones is pure perseverance.",
+        "favorite": false
+    },
+    "2": {
+        "name": "Jane Fiddlestick",
+        "image": "avatar-2",
+        "phone": {
+            "work": "(071) 0909 432",
+            "private": "(06) 31373 023"
+        },
+        "mail": {
+            "work": "jane@fiddle.stick",
+            "private": "jane@planet.net"
+        },
+        "address": {
+            "street": "Damnationstreet 666",
+            "city": "Firepit 9",
+            "country": "United Kingdoms"
+        },
+        "note": "all your base are belong to us",
+        "favorite": false
+    }
+}

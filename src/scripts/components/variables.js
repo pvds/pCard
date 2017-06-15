@@ -1,7 +1,11 @@
 /**
- * pCard Global vars
+ * pCard variables
  */
-pcard.init = function () {
+pcard.initVars = function () {
+    /**
+     * Global variables
+     */
+
     // get document <html>
     this.vars.html = document.documentElement;
 
@@ -32,4 +36,28 @@ pcard.init = function () {
         this.vars.mobile = false;
         this.vars.html.classList.add('desktop');
     }
+
+    /**
+     * pCard vars
+     */
+    // Notes textarea
+    this.theme.textarea = document.getElementById(pcard.theme.textareaId);
+
+    // Contact detail triggers
+    this.triggers.contact.select = document.querySelectorAll(pcard.triggers.contact.selectQuery);
+    this.triggers.contact.call = document.getElementById(pcard.triggers.contact.callId);
+    this.triggers.contact.mail = document.getElementById(pcard.triggers.contact.mailId);
+    this.triggers.contact.edit = document.getElementById(pcard.triggers.contact.editId);
+    this.triggers.contact.save = document.getElementById(pcard.triggers.contact.saveId);
+    this.triggers.contact.delete = document.getElementById(pcard.triggers.contact.deleteId);
+
+    // Contact list triggers
+    this.triggers.list.select = document.querySelectorAll(pcard.triggers.list.selectQuery);
+    this.triggers.list.all = document.getElementById(pcard.triggers.list.allId);
+    this.triggers.list.fav = document.getElementById(pcard.triggers.list.favId);
+    this.triggers.list.add = document.getElementById(pcard.triggers.list.addId);
+
+    // Form fields
+    this.form.element = document.getElementById(pcard.form.elementId);
+    this.form.fields.select = document.querySelectorAll(pcard.form.fields.selectQuery);
 };

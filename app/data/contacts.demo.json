@@ -15,7 +15,7 @@
             "city": "Kingdom 7",
             "country": "United Kingdoms"
         },
-        "note": "Being the richest man in the cemetery doesn't matter to me. \\n Going to bed at night saying we've done something wonderful, that's what matters to me. \\n\\n Im convinced that about half of what separates the successful entrepreneurs from the non-successful ones is pure perseverance.",
+        "note": "Being the richest man in the cemetery doesn't matter to me.\\nGoing to bed at night saying we've done something wonderful, that's what matters to me.\\n\\nI'm convinced that about half of what separates the successful entrepreneurs from the non-successful ones is pure perseverance.",
         "favorite": false
     },
     "2": {
@@ -35,6 +35,101 @@
             "country": "United Kingdoms"
         },
         "note": "all your base are belong to us",
+        "favorite": true
+    },
+    "3": {
+        "name": "Mark Berger",
+        "image": "avatar-3",
+        "phone": {
+            "work": "",
+            "private": ""
+        },
+        "mail": {
+            "work": "",
+            "private": ""
+        },
+        "address": {
+            "street": "",
+            "city": "",
+            "country": ""
+        },
+        "note": "",
+        "favorite": false
+    },
+    "4": {
+        "name": "Jon Mulla",
+        "image": "avatar-4",
+        "phone": {
+            "work": "",
+            "private": ""
+        },
+        "mail": {
+            "work": "",
+            "private": ""
+        },
+        "address": {
+            "street": "",
+            "city": "",
+            "country": ""
+        },
+        "note": "",
+        "favorite": false
+    },
+    "5": {
+        "name": "Denise Ahn-Joe",
+        "image": "avatar-5",
+        "phone": {
+            "work": "",
+            "private": ""
+        },
+        "mail": {
+            "work": "",
+            "private": ""
+        },
+        "address": {
+            "street": "",
+            "city": "",
+            "country": ""
+        },
+        "note": "",
+        "favorite": false
+    },
+    "6": {
+        "name": "Sammy White",
+        "image": "avatar-6",
+        "phone": {
+            "work": "",
+            "private": ""
+        },
+        "mail": {
+            "work": "",
+            "private": ""
+        },
+        "address": {
+            "street": "",
+            "city": "",
+            "country": ""
+        },
+        "note": "",
+        "favorite": true
+    },
+    "7": {
+        "name": "Rick Ash",
+        "image": "avatar-7",
+        "phone": {
+            "work": "",
+            "private": ""
+        },
+        "mail": {
+            "work": "",
+            "private": ""
+        },
+        "address": {
+            "street": "",
+            "city": "",
+            "country": ""
+        },
+        "note": "",
         "favorite": false
     }
 }

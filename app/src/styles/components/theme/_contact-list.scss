@@ -20,6 +20,11 @@
     $icon-arrow-right-size: 26px;
     $icon-star-filled-size: 18px;
     $icon-gutter: $gutter-fourth;
+    #contact-list-empty{
+        padding: $gutter 0;
+        text-align: center;
+        color: $grey-middle;
+    }
     li {
         @include clearfix;
         position: relative;

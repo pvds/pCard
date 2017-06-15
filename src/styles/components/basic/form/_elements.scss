@@ -1,0 +1,41 @@
+input[type=text],
+input[type=number],
+input[type=url],
+input[type=tel],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=week],
+input[type=month],
+input[type=email],
+input[type=password],
+input[type=search],
+input[type=file] + label,
+textarea,
+select {
+    appearance: none;
+    background-color: $white;
+    border: none;
+    box-shadow: none;
+    box-sizing: inherit;
+    font-family: $font-base;
+    font-size: 1.4rem;
+    height: 3.8rem;
+    padding: 0.6rem 1rem;
+    width: 100%;
+    &:hover,&:focus {
+        outline: 0;
+    }
+    &[readonly],&[disabled]{
+        cursor: default;
+    }
+}
+
+textarea {
+    min-height: 100px;
+    resize: none;
+}
+
+label{
+    user-select: none;
+}

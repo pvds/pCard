@@ -1,0 +1,42 @@
+.menu-list{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: $menu-list-height;
+    ul{
+        display: flex;
+        width: 100%;
+    }
+    li{
+        flex: 1;
+    }
+    button, .button{
+        display: block;
+        width: 100%;
+        background: $grey-dark;
+        padding: $gutter-half * 1.5 $gutter;
+        text-align: center;
+        color: darken($grey-light, 10);
+        svg *{
+            fill: darken($grey-light, 10);
+        }
+        &:hover{
+            background: darken($grey-dark, 5);
+            color: $white;
+            svg *{
+                fill: $white;
+            }
+        }
+    }
+    &.has-stacked-icons{
+        svg{
+            width: $nav-icon-small;
+            height: $nav-icon-small;
+        }
+        .title{
+            display: inline-block;
+            width: 100%;
+            font-size: 13px;
+        }
+    }
+}

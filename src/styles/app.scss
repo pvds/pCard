@@ -1,3 +1,8 @@
+//TODO: refactor components logic
+//TODO: refactor media query logic
+//TODO: refactor inheritance
+//TODO: add proper layout for mobile devices
+
 //-- Mixins --//
 @import "mixins/clearfix";
 @import "mixins/mediaquery";
@@ -8,13 +13,29 @@
 @import "variables/breakpoints";
 @import "variables/theme";
 
+//-- Development --//
+@import "dev/helpers";
+
 //-- Basic --//
 @import "basic/classes";
 @import "basic/elements";
 
+//-- Theme --//
+@import "theme/attributes";
+@import "theme/classes";
+@import "theme/elements";
+
 //-- Layouts --//
+@import "layout/global";
+@import "layout/header";
+@import "layout/nav";
 @import "layout/main";
 
 //-- Components --//
+// Basic
+@import "components/basic/form/elements";
+@import "components/basic/form/state";
+// Theme
 @import "components/theme/contact-details";
 @import "components/theme/contact-list";
+@import "components/theme/menu-list";

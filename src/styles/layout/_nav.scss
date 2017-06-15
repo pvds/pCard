@@ -1,0 +1,46 @@
+nav{
+    li{
+        button{
+            width: 100%;
+            padding: $gutter 0;
+            &:hover{
+                color: $orange;
+                svg{
+                    path{
+                        fill: $orange;
+                    }
+                }
+            }
+            &.active{
+                color: $blue-light;
+                svg{
+                    path{
+                        fill: $blue-light;
+                    }
+                }
+                &:hover{
+                    color: $blue-light;
+                    svg{
+                        path{
+                            fill: $blue-light;
+                        }
+                    }
+                }
+            }
+        }
+        svg{
+            width: $nav-icon-medium;
+            height: $nav-icon-medium;
+            path{
+                fill: $grey-dark;
+            }
+        }
+        .title{
+            display: inline-block;
+            width: 100%;
+            margin-top: 5px;
+            font-size: 13px;
+            transition: $transition-medium;
+        }
+    }
+}

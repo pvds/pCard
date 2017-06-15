@@ -1,20 +1,17 @@
 body{
-    &.is-development{
+    &.development{
         &:after{
             position: fixed;
-            bottom: 0;
+            top: 0;
             right: 0;
             background: $black;
             color: $white;
             padding: 0.5rem 1rem;
             font-size: 1.3rem;
             font-family: $font-base;
-            border-radius: $border-radius 0 0 0;
+            border-radius: 0 0 0 $border-radius;
             z-index: 10000;
-            content: "XXS - #{$bp-xxs}em(#{$bp-xxs-px}px)";
-            @include media(xs-only){
-                content: "XS - #{$bp-xs}em(#{$bp-xs-px}px)";
-            }
+            content: "Small - #{$bp-sm}em(#{$bp-sm-px}px)";
             @include media(sm){
                 content: "SM - #{$bp-sm}em(#{$bp-sm-px}px)";
             }
@@ -23,9 +20,6 @@ body{
             }
             @include media(lg){
                 content: "LG - #{$bp-lg}em(#{$bp-lg-px}px)";
-            }
-            @include media(xl){
-                content: "XL - #{$bp-xl}em(#{$bp-xl-px}px)";
             }
         }
     }

@@ -1,0 +1,16 @@
+form {
+    &.read-mode {
+        label{
+            color: darken($grey-light, 20);
+        }
+        label, svg *{
+            cursor: default;
+        }
+    }
+    &.write-mode {
+        label, svg *{
+            cursor: pointer;
+            color: $blue;
+        }
+    }
+}

@@ -1,8 +1,8 @@
-.is-hidden{
+.is-hidden {
     display: none;
 }
 
-.sr-only{
+.sr-only {
     display: none;
 }
 
@@ -10,10 +10,49 @@
     position: absolute;
     overflow: hidden;
     clip: rect(0 0 0 0);
-    height: 1px; width: 1px;
-    margin: -1px; padding: 0; border: 0;
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
 }
 
 .is-round {
     border-radius: 50%;
+}
+
+@include media(sm-max){
+    .hidden-sm-down{
+        display: none;
+    }
+}
+
+@include media(sm){
+    .hidden-sm-up{
+        display: none;
+    }
+}
+
+@include media(md-max){
+    .hidden-md-down{
+        display: none;
+    }
+}
+
+@include media(md-only){
+    .hidden-md{
+        display: none;
+    }
+}
+
+@include media(md){
+    .hidden-md-up{
+        display: none;
+    }
+}
+
+@include media(lg){
+    .hidden-lg {
+        display: none;
+    }
 }

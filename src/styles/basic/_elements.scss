@@ -40,7 +40,7 @@ body {
     letter-spacing: $letter-spacing;
     background: $body-color;
     color: $text-color;
-    min-width: #{$bp-xxs-px - $gutter};
+    min-width: #{$bp-sm-px - $gutter};
 }
 
 /**
@@ -109,7 +109,8 @@ strong, dt, th {
  */
 
 a,
-button {
+button,
+svg *{
     color: inherit; /* 1 */
     cursor: pointer; /* 2 */
     transition: .3s; /* 3 */
@@ -207,10 +208,6 @@ small {
 
 textarea {
     overflow: auto;
-}
-
-label{
-    cursor: pointer;
 }
 
 /* Embedded content

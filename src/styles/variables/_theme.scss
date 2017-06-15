@@ -26,11 +26,22 @@ $black: #222222;
 $grey-dark: #666666;
 $grey-middle: #999999;
 $grey-light: #f3f3f3;
+$blue: #1d7889;
+$blue-light: #2494A9;
+$orange: #db8c2d;
 
 $body-color: $white;
 $text-color: $grey-dark;
 
 // Layout
+$header-width: 150px;
+$contact-list-width: 300px;
+$contact-list-item-height: 48px;
+$contact-list-detail-height: 64px;
+$menu-list-height: 74px;
+$nav-icon-small: 24px;
+$nav-icon-medium: 32px;
+
 $spacing: 1em;
 $spacing-half: $spacing / 2;
 $spacing-fourth: $spacing / 4;

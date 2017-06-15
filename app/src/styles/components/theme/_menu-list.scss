@@ -27,6 +27,15 @@
                 fill: $white;
             }
         }
+        &[disabled]{
+            background: lighten($grey-dark, 5);
+            color: darken($grey-dark, 10);
+            cursor: not-allowed;
+            svg *{
+                cursor: not-allowed;
+                fill: darken($grey-dark, 10);
+            }
+        }
     }
     &.has-stacked-icons{
         svg{

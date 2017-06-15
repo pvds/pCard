@@ -27,9 +27,10 @@
 </head>
 <?php
 require "lib/vendor/kint.php";
+require "lib/functions/contacts.php";
 require "lib/config/constants.php";
 require "lib/config/main.php";
-require "lib/functions/contacts.php";
+require "lib/config/contacts.php";
 ?>
 <body class="<?=ENV?>">
 
@@ -44,7 +45,7 @@ require "lib/functions/contacts.php";
         include "views/contact-list-actions.php";
         ?>
     </div>
-    <section id="contact-details-wrap" class="view details-view">
+    <section id="contact-details-wrap" class="view details-view" data-id="<?=$contact['contact_id']?>">
         <?php
         include "views/contact-details-menu.php";
         include "views/contact-details.php";

@@ -1,6 +1,3 @@
-<?php $contact = getContactDetails()?>
-
-
 <form id="contact-details" class="read-mode">
     <header id="contact-details-header">
         <div class="form-control has-image">

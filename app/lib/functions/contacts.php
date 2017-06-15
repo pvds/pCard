@@ -1,9 +1,14 @@
 <?php
 
-function getContactData($single_user = false, $user_id = 1){
+function getContactData($single_contact = false, $contact_id = 1){
     $jsondata = file_get_contents('data/contacts.demo.json');
     $data = json_decode($jsondata, true);
-    $contact_data = $single_user ? $data[$user_id] : $data;
+    if($single_contact){
+        $contact_data = $data[$contact_id];
+        $contact_data['contact_id'] = $contact_id;
+    } else{
+        $contact_data = $data;
+    }
 
     return $contact_data;
 }

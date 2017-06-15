@@ -24,7 +24,8 @@
     "lint": "eslint src/scripts",
     "babel": "babel src/scripts --out-file app/dist/scripts/app.js --presets=es2015,babili",
     "static": "run-p static:*",
-    "static:imagemin": "imagemin src/images/**/* -o app/dist/images",
+    "static:images": "imagemin src/images/**/* -o app/dist/images",
+    "static:icons": "copyfiles -f src/icons/**/* app/dist/icons",
     "build": "npm run clean && run-p build:*",
     "build:css": "npm run sass -- --source-map true --output-style expanded && npm run postcss",
     "build:js": "npm run lint && npm run babel -- -s",
@@ -36,7 +37,7 @@
     "start": "npm-run-all -p server start:*",
     "start:css": "onchange src/styles -- npm run build:css",
     "start:js": "onchange src/scripts -- npm run build:js",
-    "start:images": "onchange src/images -- npm run static:imagemin",
+    "start:images": "onchange src/images -- npm run static:images",
     "server": "browser-sync start --watchEvents [add, change] -p pcard.dev --host pcard.dev --open external --files [app/dist, app/**/*.php]",
     "postinstall": "npm run build && npm start"
   },

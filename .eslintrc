@@ -10,6 +10,7 @@
         "no-console": 0,
         "no-plusplus": 1,
         "no-param-reassign": [2, { "props": false }],
-        "indent": [1, 4]
+        "indent": [1, 4],
+        "max-len": 1
     }
 }

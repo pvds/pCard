@@ -31,9 +31,23 @@
         padding: $gutter-half;
         line-height: $contact-list-item-height;
         cursor: pointer;
-        transition: $transition-short;
+        transition: none;
+        &.is-odd{
+            background: $grey-light;
+        }
         &:hover,&.is-highlight {
+            transition: $transition-short;
             background: lighten(desaturate($blue, 10), 60);
+            background: $blue-light;
+            color: $white;
+            h2{
+                transition: $transition-short;
+                color: $white;
+            }
+            svg *{
+                transition: $transition-short;
+                fill: $white;
+            }
         }
     }
     img {
@@ -63,26 +77,6 @@
             width: $icon-arrow-right-size;
             right: $icon-gutter;
             top: (($contact-list-item-height + $gutter) / 2) - ($icon-arrow-right-size / 2);
-        }
-    }
-    &.is-filtered{
-        li{
-            &.is-odd{
-                background: $grey-light;
-                &:hover {
-                    background: lighten(desaturate($blue, 10), 60);
-                }
-            }
-        }
-    }
-    &:not(.is-filtered){
-        li{
-            &:nth-child(odd) {
-                background: $grey-light;
-                &:hover {
-                    background: lighten(desaturate($blue, 10), 60);
-                }
-            }
         }
     }
 }

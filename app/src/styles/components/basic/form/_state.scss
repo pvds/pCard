@@ -10,7 +10,7 @@ form {
     &.write-mode {
         label, svg *{
             cursor: pointer;
-            color: $blue;
+            color: $blue-light;
         }
         input{
             border-bottom-color: darken($grey-light, 5);

@@ -21,14 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
      * Initialize theme functions
      **/
 
-    // favorite click listener
-    toggleFavorite();
-
     // toggle between fav and all contacts
     toggleListView();
 
-    // toggle between contact list and contact details
-    toggleView();
+    // toggle between contacts
+    toggleContact();
+
+    // toggleFavorite();
+    toggleFavorite();
+
+    // toggle to contact list
+    toggleToContactList();
 
     // favorite contact list filter
     filterContactList();

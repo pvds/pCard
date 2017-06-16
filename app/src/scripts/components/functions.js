@@ -22,7 +22,6 @@
  *  > todo: contact_cookie
  *  > todo: fuzzy_search
  */
-const contacts = ajaxGet('/data/contacts.demo.json');
 
 const toggleContactTriggers = (triggers) => {
     triggers.forEach((trigger) => {
@@ -31,6 +30,7 @@ const toggleContactTriggers = (triggers) => {
 };
 
 const toggleReadWrite = (editFields) => {
+    // console.log(editFields);
     // Toggle readonly field attribute
     pcard.form.fields.select.forEach((field) => {
         if (editFields) {
@@ -40,7 +40,6 @@ const toggleReadWrite = (editFields) => {
         }
     });
 
-    // Toggle readonly form class
     pcard.form.element.classList.toggle('write-mode');
     pcard.form.element.classList.toggle('read-mode');
 };
@@ -82,123 +81,40 @@ const showContact = (contactData, contactId) => {
     /**
      * Prepare contact data
      * */
-    const placeholder = 'placeholder';
-    const image = contactData.image !== '' ? contactData.image : 'avatar-placeholder';
-    const imageAction = contactData.image !== '' ? 'edit' : 'add';
-    // TODO: check why double newline character is not replaced by the first replace method
-    const note = contactData.note.replace('\\n', '&#xA;').replace('\\n\\n', '&#xA;&#xA;');
-
-    /**
-     * Setup markup snippet
-     * */
-    const markupDetail = `
-    <header id="contact-details-header">
-        <div class="form-control has-image">
-        <label for="contact-details-image-field">
-            <img src='dist/images/${image}.jpg' width='64' height='64' srcset='dist/images/${image}@2x.jpg 2x'/>
-            <span id='edit-image-field' class='is-hidden'>${imageAction}<br/>photo</span>
-        <?php } ?>
-    </label>
-    <input disabled hidden id="contact-details-image-field" type="file"/>
-        </div>
-        <div class="form-control has-name">
-        <input disabled id="contact-details-name-field" type="text" title="contact name" value="${contactData.name}"/>
-        </div>
-        <div class="form-control has-favorite">
-        <label for="contact-details-favorite-field">
-            <svg ${contactData.favorite ? 'hidden' : ''} class="icon-star-outline unchecked" data-name="Star outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.916,47.6L25.071,39.8,10.226,47.6l2.835-16.53L1.052,19.366l16.6-2.412L25.071,1.915l7.423,15.039,16.6,2.412L37.081,31.073ZM25.071,37.975l12.7,6.678L35.347,30.51,45.623,20.493l-14.2-2.064L25.071,5.56,18.719,18.429l-14.2,2.064L14.794,30.51,12.369,44.653Z" fill="#FFF"/></svg>
-            <svg ${contactData.favorite ? '' : 'hidden'} class="icon-star-filled checked" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"/></svg>
-        </label>
-        <input disabled hidden id="contact-details-favorite-field" name="contact-details-favorite" type="checkbox" ${contactData.favorite ? 'checked' : ''}/>
-    </div>
-    </header>
-    <div id="contact-details-phone" class="form-section">
-        <div class="form-control">
-            <div class="label-wrapper">
-                <label for="contact-details-phone-work-field">work</label>
-            </div>
-            <div class="element-wrapper">
-                <input disabled id="contact-details-phone-work-field" type="tel" value="${contactData.phone.work}"/>
-            </div>
-        </div>
-        <div class="form-control">
-            <div class="label-wrapper">
-                <label for="contact-details-phone-mobile-field">mobile</label>
-            </div>
-            <div class="element-wrapper">
-                <input disabled id="contact-details-phone-mobile-field" type="tel" value="${contactData.phone.private}"/>
-            </div>
-        </div>
-        </div>
-        <div id="contact-details-mail" class="form-section">
-            <div class="form-control">
-                <div class="label-wrapper">
-                    <label for="contact-details-mail-work-field">work</label>
-                </div>
-                <div class="element-wrapper">
-                    <input disabled id="contact-details-mail-work-field" type="email" value="${contactData.mail.work}"/>
-                </div>
-            </div>
-            <div class="form-control">
-                <div class="label-wrapper">
-                    <label for="contact-details-mail-private-field">private</label>
-                </div>
-                <div class="element-wrapper">
-                    <input disabled id="contact-details-mail-private-field" type="email" value="${contactData.mail.private}"/>
-                </div>
-            </div>
-        </div>
-        <div id="contact-details-address" class="form-section">
-            <div class="form-control">
-                <div class="label-wrapper">
-                    <label for="contact-details-address-field-line-1">home</label>
-                </div>
-                <div class="element-wrapper">
-                    <input disabled id="contact-details-address-field-line-1" title="street and housenumber" type="text" value="${contactData.address.street}"/>
-                </div>
-                <div class="element-wrapper">
-                    <input disabled id="contact-details-address-field-line-2" title="city" type="text" value="${contactData.address.city}"/>
-                </div>
-                <div class="element-wrapper">
-                    <input disabled id="contact-details-address-field-line-3" title="country" type="text" value="${contactData.address.country}"/>
-                </div>
-            </div>
-        </div>
-        <div id="contact-details-note" class="form-section">
-            <div class="label-wrapper">
-                <label for="contact-details-note-field">note</label>
-            </div>
-            <div class="element-wrapper">
-            <textarea disabled id="contact-details-note-field">${note}</textarea>
-        </div>
-    </div>`;
-
-    /**
-     * Replace current form with markup form
-     * */
     const detailsWrap = document.getElementById('contact-details-wrap');
-    const detailsFormCurrent = detailsWrap.querySelector('form#contact-details');
-
-    /* Keep DOM from repainting every individual element */
-    const detailsFormFragment = document.createDocumentFragment();
-
-    /* Rebuild form element in DOM */
-    const detailsFormNew = document.createElement('form');
-    detailsFormNew.id = 'contact-details';
-    detailsFormNew.className = 'read-mode';
-    detailsFormNew.innerHTML = markupDetail;
-
-    /* Append new form element to fragment */
-    detailsFormFragment.appendChild(detailsFormNew);
-    detailsWrap.replaceChild(detailsFormNew, detailsFormCurrent);
-
-    /* Set global form node variable to new form node */
-    pcard.form.element = detailsFormNew;
+    const contactDataProcessed = {};
+    contactDataProcessed.image = contactData.image !== '' ? contactData.image : 'avatar-placeholder';
+    contactDataProcessed.imageAction = contactData.image !== '' ? 'edit' : 'add';
+    contactDataProcessed.favoriteChecked = contactData.favorite ? 'checked' : '';
+    // TODO: check why double newline character is not replaced by the first replace method
+    contactDataProcessed.note = contactData.note.replace('\\n', '&#xA;').replace('\\n\\n', '&#xA;&#xA;');
 
     /**
-     * Update contact id
+     * Update contact data
      * */
     detailsWrap.setAttribute('data-id', contactId);
+
+    pcard.form.fields.imageTag.setAttribute('src', `dist/images/${contactDataProcessed.image}.jpg`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${contactDataProcessed.image}@2x.jpg 2x`);
+    pcard.form.fields.imageEdit.text = contactDataProcessed.imageAction;
+    pcard.form.fields.name.value = contactData.name;
+    // pcard.form.fields.image = '';
+    if (contactData.favorite) {
+        pcard.form.fields.favoriteIconFalse.setAttribute('hidden', '');
+        pcard.form.fields.favoriteIconTrue.removeAttribute('hidden');
+    } else {
+        pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
+        pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
+    }
+    pcard.form.fields.favorite.checked = contactData.favorite;
+    pcard.form.fields.phoneWork.value = contactData.phone.work;
+    pcard.form.fields.phonePrivate.value = contactData.phone.private;
+    pcard.form.fields.mailWork.value = contactData.mail.work;
+    pcard.form.fields.mailPrivate.value = contactData.mail.private;
+    pcard.form.fields.addressStreet.value = contactData.address.street;
+    pcard.form.fields.addressCity.value = contactData.address.city;
+    pcard.form.fields.addressCountry.value = contactData.address.country;
+    pcard.form.fields.note.value = contactDataProcessed.note;
 
     /**
      * Update current form actions
@@ -225,10 +141,12 @@ const showContact = (contactData, contactId) => {
 const getContact = (contactTrigger) => {
     const contactId = contactTrigger.getAttribute('data-id');
     // console.log(`getting contact ${contactId}!`);
+    const contacts = ajaxGet('/data/contacts.demo.json');
 
     contacts.then((data) => {
         const jsonData = JSON.parse(data);
         const contactData = jsonData[contactId];
+        // console.log(contactData);
 
         showContact(contactData, contactId);
     });
@@ -238,18 +156,38 @@ const showContactList = () => {
     // console.log('showing contact list!');
 };
 
+const updateContactList = (id, name, favorite) => {
+    // console.log('updating contact list!');
+    const updatedContact = document.querySelector(`#contact-list-overview li[data-id="${id}"]`);
+
+    updatedContact.querySelector('h2').innerText = name;
+    if (favorite) {
+        updatedContact.querySelector('svg.icon-star-filled').removeAttribute('hidden');
+    } else {
+        updatedContact.querySelector('svg.icon-star-filled').setAttribute('hidden', '');
+    }
+
+    highlight(updatedContact);
+};
+
 const getContactList = () => {
     // console.log('getting contact list!');
     // contacts.then((data) => {
-    //     onsole.log(JSON.parse(data));
+    //     console.log(JSON.parse(data));
     // });
     // showContactList();
 };
 
-function onViewChange(contactTrigger) {
+function onToggle(contactTrigger) {
     // console.log('change view!');
-    // TODO: enhance class toggle logic for devices which use sm and md/lg media queries
-    // TODO: use js media query class and contactTrigger argument for logic
+
+    /**
+     * Smallscreen view toggle
+     *
+     * TODO: enhance class toggle logic for devices which use sm and md/lg media queries
+     * TODO: use js media query class and contactTrigger argument for logic
+     **/
+
     const container = document.querySelector('main');
     container.classList.toggle('view-change');
 
@@ -257,22 +195,32 @@ function onViewChange(contactTrigger) {
     if (contactTrigger) {
         getContact(contactTrigger);
     }
+
+    const isWriteMode = document.getElementById('contact-details').classList.contains('write-mode');
+    if (isWriteMode) {
+        toggleContactTriggers(pcard.triggers.contact.select);
+        toggleReadWrite(false);
+    }
 }
 
 /**
- * Smallscreen view toggle
+ * Toggle between contacts
  **/
-function toggleView() {
+function toggleContact() {
     const listItems = document.querySelectorAll('#contact-list-overview li');
-
     // When you click a list item, bring on the details view.
     for (let i = 0; i < listItems.length; i++) {
-        listItems[i].addEventListener('click', e => onViewChange(listItems[i]), false);
+        listItems[i].addEventListener('click', e => onToggle(listItems[i]), false);
     }
+}
 
+/**
+ * Smallscreen toggle back to contact list
+ **/
+function toggleToContactList() {
     // And switch it back again when you click the back button
     const backButton = document.querySelector('.back-button');
-    backButton.addEventListener('click', e => onViewChange(e, false));
+    backButton.addEventListener('click', e => onToggle(false));
 }
 
 /**
@@ -373,8 +321,58 @@ const editContact = (triggers) => {
 
 const saveContact = (triggers) => {
     // console.log('saving contact!');
+
+    const formWrap = document.getElementById('contact-details-wrap');
+
+    // TODO: use AJAX POST to post the form directly to PHP (use ajaxPost promise helper)
+    // const form = formWrap.querySelector('#contact-details');
+    // const data = new FormData(form);
+
+    const id = formWrap.getAttribute('data-id');
+    const name = document.getElementById('contact-details-name-field').value;
+    const imageRaw = document.querySelector('.has-image img').getAttribute('src');
+    const imageFileArray = imageRaw.split('/');
+    const imageNameArray = imageFileArray[2].split('.');
+    const image = imageNameArray[0];
+    const phoneWork = document.getElementById('contact-details-phone-work-field').value;
+    const phonePrivate = document.getElementById('contact-details-phone-mobile-field').value;
+    const mailWork = document.getElementById('contact-details-mail-work-field').value;
+    const mailPrivate = document.getElementById('contact-details-mail-private-field').value;
+    const street = document.getElementById('contact-details-address-field-line-1').value;
+    const city = document.getElementById('contact-details-address-field-line-2').value;
+    const country = document.getElementById('contact-details-address-field-line-3').value;
+    const note = document.getElementById('contact-details-note-field').value;
+    const favorite = document.getElementById('contact-details-favorite-field').checked;
+    const formData = {};
+    formData[id] = {
+        name,
+        image,
+        phone: {
+            work: phoneWork,
+            private: phonePrivate,
+        },
+        mail: {
+            work: mailWork,
+            private: mailPrivate,
+        },
+        address: {
+            street,
+            city,
+            country,
+        },
+        note,
+        favorite,
+    };
+
+    const JSONformData = JSON.stringify(formData);
+    // console.log(formData);
+
+    ajaxPost('/lib/ajax/save-contact.php', JSONformData);
+
     toggleContactTriggers(triggers);
     toggleReadWrite(false);
+
+    updateContactList(id, name, favorite);
 };
 
 const deleteContact = () => {

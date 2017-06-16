@@ -6,8 +6,8 @@
                     echo $contact['image-html'];
                 } else { ?>
                     <!-- By Google, Chromium project [BSD (http://opensource.org/licenses/bsd-license.php)], via Wikimedia Commons -->
-                    <img src='dist/images/avatar-placeholder.jpg' width='64' height='64' srcset='dist/images/avatar-placeholder@2x.jpg 2x'/>
-                    <span id='edit-image-field' class='is-hidden'>add<br/>photo</span>
+                    <img id="contact-details-image" src='dist/images/avatar-placeholder.jpg' width='64' height='64' srcset='dist/images/avatar-placeholder@2x.jpg 2x'/>
+                    <span id='edit-image-field' class='is-hidden'><span id='edit-image-field-action'>add</span><br/>photo</span>
                 <?php } ?>
             </label>
             <input disabled hidden id="contact-details-image-field" type="file"/>
@@ -17,8 +17,8 @@
         </div>
         <div class="form-control has-favorite">
             <label for="contact-details-favorite-field">
-                <svg <?=$contact['favorite'] ? "hidden" : ""?>class="icon-star-outline unchecked" data-name="Star outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.916,47.6L25.071,39.8,10.226,47.6l2.835-16.53L1.052,19.366l16.6-2.412L25.071,1.915l7.423,15.039,16.6,2.412L37.081,31.073ZM25.071,37.975l12.7,6.678L35.347,30.51,45.623,20.493l-14.2-2.064L25.071,5.56,18.719,18.429l-14.2,2.064L14.794,30.51,12.369,44.653Z" fill="#FFF"/></svg>
-                <svg <?=$contact['favorite'] ? "" : "hidden"?> class="icon-star-filled checked" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"/></svg>
+                <svg id="contact-details-favorite-false" <?=$contact['favorite'] ? "hidden" : ""?> class="icon-star-outline unchecked" data-name="Star outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.916,47.6L25.071,39.8,10.226,47.6l2.835-16.53L1.052,19.366l16.6-2.412L25.071,1.915l7.423,15.039,16.6,2.412L37.081,31.073ZM25.071,37.975l12.7,6.678L35.347,30.51,45.623,20.493l-14.2-2.064L25.071,5.56,18.719,18.429l-14.2,2.064L14.794,30.51,12.369,44.653Z" fill="#FFF"/></svg>
+                <svg id="contact-details-favorite-true" <?=$contact['favorite'] ? "" : "hidden"?> class="icon-star-filled checked" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"/></svg>
             </label>
             <input disabled hidden id="contact-details-favorite-field" name="contact-details-favorite" type="checkbox" <?=$contact['favorite'] ? "checked" : ""?>/>
         </div>

@@ -1,6 +1,6 @@
 {
     "1": {
-        "name": "Ben Highcastle",
+        "name": "Arthur Highcastle",
         "image": "avatar-1",
         "phone": {
             "work": "(085) 760 0233",
@@ -15,14 +15,14 @@
             "city": "Kingdom 7",
             "country": "United Kingdoms"
         },
-        "note": "Being the richest man in the cemetery doesn't matter to me.\\nGoing to bed at night saying we've done something wonderful, that's what matters to me.\\n\\nI'm convinced that about half of what separates the successful entrepreneurs from the non-successful ones is pure perseverance.",
-        "favorite": false
+        "note": "Being the richest man in the cemetery doesn't matter to me.\nGoing to bed at night saying we've done something wonderful, that's what matters to me.\n\nI'm convinced that about half of what separates the successful entrepreneurs from the non-successful ones is pure perseverance.",
+        "favorite": true
     },
     "2": {
         "name": "Jane Fiddlestick",
         "image": "avatar-2",
         "phone": {
-            "work": "(071) 0909 432",
+            "work": "(070) 9836482",
             "private": "(06) 31373 023"
         },
         "mail": {
@@ -38,7 +38,7 @@
         "favorite": true
     },
     "3": {
-        "name": "Mark Berger",
+        "name": "Mark Erger",
         "image": "avatar-3",
         "phone": {
             "work": "",
@@ -57,7 +57,7 @@
         "favorite": false
     },
     "4": {
-        "name": "Jon Mulla",
+        "name": "Jon Mullah",
         "image": "avatar-4",
         "phone": {
             "work": "",

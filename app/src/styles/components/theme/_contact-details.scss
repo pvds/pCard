@@ -1,12 +1,4 @@
 #contact-details{
-    animation: fadeIn 400ms ease-in-out;
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-    }
-
     $icon-arrow-right-size: 26px;
     $icon-star-filled-size: 18px;
     $icon-gutter: $gutter-fourth;

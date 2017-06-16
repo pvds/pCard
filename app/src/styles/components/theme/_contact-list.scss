@@ -35,7 +35,7 @@
         &:nth-child(odd) {
             background: $grey-light;
         }
-        &:hover {
+        &:hover,&.is-highlight {
             background: lighten(desaturate($blue, 10), 60);
         }
     }

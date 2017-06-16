@@ -57,5 +57,19 @@ pcard.initVars = function () {
     // Form fields
     this.form.element = document.getElementById(pcard.form.elementId);
     this.form.fields.select = document.querySelectorAll(pcard.form.fields.selectQuery);
+    this.form.fields.name = document.getElementById(pcard.form.fields.nameId);
+    this.form.fields.imageTag = document.getElementById(pcard.form.fields.imageTagId);
+    this.form.fields.imageEdit = document.getElementById(pcard.form.fields.imageEditId);
+    this.form.fields.image = document.getElementById(pcard.form.fields.imageId);
+    this.form.fields.favoriteIconFalse = document.getElementById(pcard.form.fields.favoriteIconFalseId);
+    this.form.fields.favoriteIconTrue = document.getElementById(pcard.form.fields.favoriteIconTrueId);
+    this.form.fields.favorite = document.getElementById(pcard.form.fields.favoriteId);
+    this.form.fields.phoneWork = document.getElementById(pcard.form.fields.phoneWorkId);
+    this.form.fields.phonePrivate = document.getElementById(pcard.form.fields.phonePrivateId);
+    this.form.fields.mailWork = document.getElementById(pcard.form.fields.mailWorkId);
+    this.form.fields.mailPrivate = document.getElementById(pcard.form.fields.mailPrivateId);
+    this.form.fields.addressStreet = document.getElementById(pcard.form.fields.addressStreetId);
+    this.form.fields.addressCity = document.getElementById(pcard.form.fields.addressCityId);
+    this.form.fields.addressCountry = document.getElementById(pcard.form.fields.addressCountryId);
     this.form.fields.note = document.getElementById(pcard.form.fields.noteId);
 };

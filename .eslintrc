@@ -12,6 +12,6 @@
         "no-param-reassign": [2, { "props": false }],
         "indent": [1, 4],
         "max-len": 0,
-        "no-use-before-define": 1
+        "no-use-before-define": [2, { "functions": false, "classes": false, "variables": false }]
     }
 }

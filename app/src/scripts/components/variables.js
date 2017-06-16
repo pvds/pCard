@@ -72,4 +72,8 @@ pcard.initVars = function () {
     this.form.fields.addressCity = document.getElementById(pcard.form.fields.addressCityId);
     this.form.fields.addressCountry = document.getElementById(pcard.form.fields.addressCountryId);
     this.form.fields.note = document.getElementById(pcard.form.fields.noteId);
+
+    // List
+    this.list.items = document.querySelectorAll(pcard.list.itemsQuery);
+    this.list.searchInput = document.getElementById(pcard.list.searchInputId);
 };

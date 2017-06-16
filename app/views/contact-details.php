@@ -10,7 +10,7 @@
                     <span id='edit-image-field' class='is-hidden'><span id='edit-image-field-action'>add</span><br/>photo</span>
                 <?php } ?>
             </label>
-            <input disabled hidden id="contact-details-image-field" type="file"/>
+            <input disabled hidden id="contact-details-image-field" accept="image/*" type="file"/>
         </div>
         <div class="form-control has-name">
             <input disabled id="contact-details-name-field" type="text" title="contact name" value="<?=$contact['name']?>"/>

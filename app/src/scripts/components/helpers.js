@@ -86,3 +86,17 @@ const emptyText = (listItems) => {
         }
     }
 };
+
+function showImage(input) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        pcard.form.fields.imageTag.setAttribute('src', e.target.result);
+        pcard.form.fields.imageTag.setAttribute('srcset', e.target.result);
+        // pcard.form.fields.imageTag.src = `${e.target.result}`;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(input.files[0]);
+}

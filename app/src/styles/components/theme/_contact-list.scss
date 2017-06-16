@@ -32,9 +32,6 @@
         line-height: $contact-list-item-height;
         cursor: pointer;
         transition: $transition-short;
-        &:nth-child(odd) {
-            background: $grey-light;
-        }
         &:hover,&.is-highlight {
             background: lighten(desaturate($blue, 10), 60);
         }
@@ -70,10 +67,17 @@
     }
     &.is-filtered{
         li{
-            &:nth-child(odd) {
-                background: $white;
-            }
             &.is-odd{
+                background: $grey-light;
+                &:hover {
+                    background: lighten(desaturate($blue, 10), 60);
+                }
+            }
+        }
+    }
+    &:not(.is-filtered){
+        li{
+            &:nth-child(odd) {
                 background: $grey-light;
                 &:hover {
                     background: lighten(desaturate($blue, 10), 60);

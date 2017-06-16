@@ -1,5 +1,3 @@
-<!--todo: separate in partials-->
-<!--todo: load contact list and contact details from json file-->
 <!--todo: add svg icon for back button-->
 <!--todo: form: disable autocomplete, use appropriate autocapitalize, add placeholders-->
 <!--todo: add aria-->
@@ -26,6 +24,7 @@
     <![endif]-->
 </head>
 <?php
+include "env.php";
 require "lib/vendor/kint.php";
 require "lib/functions/contacts.php";
 require "lib/config/constants.php";

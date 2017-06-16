@@ -1,20 +1,20 @@
 /**
  * Main functions
- *  > todo: get_contact_list
+ *  > get_contact_list
  *      - AJAX get contacts.json
- *  > todo: show_contact_list
+ *  > show_contact_list
  *      - AJAX post contact_list view partial
  *  > search_contact_list
  *      - Filter current contact_list based on name fragments && toggle css classes
- *  > todo: get_contact
+ *  > get_contact
  *      - AJAX get contacts.json & filter user_id
- *  > todo: show_contact
+ *  > show_contact
  *      - AJAX post contact view partial
- *  > todo: save_contact
+ *  > save_contact
  *      - AJAX post pCard object && PHP add to contacts.json
- *  > todo: edit_contact
+ *  > edit_contact
  *      - AJAX post pCard object && PHP modify/replace object in contacts.json
- *  > todo: delete_contact
+ *  > delete_contact
  *      - AJAX post user_id && PHP delete object with user_id from contacts.json
  *
  * Extra functions
@@ -118,18 +118,13 @@ const addContact = () => {
     if (form.classList.contains('read-mode')) {
         toggleContactTriggers(pcard.triggers.contact.select);
         toggleReadWrite(true);
+
+        // Switch to contact view
+        const container = document.querySelector('main');
+        container.classList.toggle('view-change');
+        // Focus on name
+        setTimeout(document.getElementById('contact-details-name-field').focus(), 10);
     }
-
-    // console.info('5. trigger save contact function');
-    // TODO: check why every new contact is favorite
-
-    // console.info('6. add contact to contact list');
-    // build in save contact
-
-    // console.info('7. add listener for new contact list item');
-    // build in save contact
-
-    // console.info('PHP: add-contact.php > build in check if json file exists, otherwise create it');
 };
 
 const showContact = (contactData, contactId) => {

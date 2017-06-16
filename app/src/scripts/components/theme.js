@@ -1,37 +1,18 @@
 /**
- * Main functions
- *  > get_contact_list
- *      - AJAX get contacts.json
- *  > show_contact_list
- *      - AJAX post contact_list view partial
- *  > search_contact_list
- *      - Filter current contact_list based on name fragments && toggle css classes
- *  > get_contact
- *      - AJAX get contacts.json & filter user_id
- *  > show_contact
- *      - AJAX post contact view partial
- *  > save_contact
- *      - AJAX post pCard object && PHP add to contacts.json
- *  > edit_contact
- *      - AJAX post pCard object && PHP modify/replace object in contacts.json
- *  > delete_contact
- *      - AJAX post user_id && PHP delete object with user_id from contacts.json
+ * Fix
+ * todo: set mail and call links to disabled by default, enable when email available
  *
  * Extra functions
- *  > todo: export_contact
- *  > todo: contact_cookie
- *  > todo: fuzzy_search
+ * todo: export_contact
+ * todo: contact_cookie
+ * todo: fuzzy_search
  */
 
-const toggleContactTriggers = (triggers) => {
-    triggers.forEach((trigger) => {
-        trigger.parentNode.classList.toggle('is-hidden');
-    });
-};
-
+/**
+ * Toggle between read and write contact details
+ **/
 const toggleReadWrite = (editFields) => {
-    // console.log(editFields);
-    // Toggle readonly field attribute
+    // disable/enable form fields
     pcard.form.fields.select.forEach((field) => {
         if (editFields) {
             field.removeAttribute('disabled');
@@ -40,20 +21,26 @@ const toggleReadWrite = (editFields) => {
         }
     });
 
+    // toggle class
     pcard.form.element.classList.toggle('write-mode');
     pcard.form.element.classList.toggle('read-mode');
 };
 
+/**
+ * Toggle favite with contact detail menu item
+ **/
 const toggleFavorite = () => {
-    const favTrigger = document.getElementById('contact-details-actions-favorite');
-    const favInput = document.getElementById('contact-details-favorite-field');
-    const favIconChecked = document.querySelector('.has-favorite svg.checked');
-    const favIconUnchecked = document.querySelector('.has-favorite svg.unchecked');
+    const favTrigger = document.getElementById(pcard.triggers.contact.favId);
+    const favInput = document.getElementById(pcard.form.fields.favoriteId);
+    const favIconChecked = document.querySelector(pcard.form.fields.favoriteIconTrueId);
+    const favIconUnchecked = document.querySelector(pcard.form.fields.favoriteIconFalseId);
 
+    // Link trigger to checkbox
     favTrigger.addEventListener('click', () => {
         favInput.click();
     });
 
+    // Switch between checked and unchecked icons
     favInput.addEventListener('click', () => {
         if (favInput.checked) {
             favIconUnchecked.setAttribute('hidden', '');
@@ -66,92 +53,80 @@ const toggleFavorite = () => {
 };
 
 /**
- * Contact list functions
+ * Create new contact
  **/
-
-// TODO: rename to all 'add' instances to 'create'
 const addContact = () => {
-    // console.info('0. start adding new contact!');
+    /** Get and set highest contact id **/
+    const listItems = document.querySelectorAll(pcard.list.itemsQuery);
+    const formWrapper = document.getElementById(pcard.form.wrapperId);
+    const form = document.getElementById(pcard.form.elementId);
 
-    // console.info('1. get highest id');
-    const listItems = document.querySelectorAll('#contact-list-overview li');
-    // console.log(listItems);
-    let highest = 0;
+    let highestId = 0;
     if (listItems.length > 0) {
         const listItemIds = new Map();
         listItems.forEach((listItem) => {
             const id = listItem.getAttribute('data-id');
             listItemIds.set(id, id);
         });
-        highest = Math.max(...listItemIds.values());
-        // console.log(highest);
+        highestId = Math.max(...listItemIds.values());
     }
 
-    // console.info('2. set data-id as (highest id + 1) on wrapper');
-    const newListItemId = highest + 1;
-    const formWrapper = document.getElementById('contact-details-wrap');
+    const newListItemId = highestId + 1;
     formWrapper.setAttribute('data-id', newListItemId);
-    // console.log(newListItemId);
 
+    /** Clear current form **/
+    const image = 'avatar-placeholder';
+    const imageAction = 'add';
 
-    // console.info('3. clear current form');
-    // Clear form fields
+    // clear field values
     pcard.form.fields.select.forEach((field) => {
         field.value = '';
     });
-    // Set placeholder avatar
-    const image = 'avatar-placeholder';
-    const imageAction = 'add';
+
+    // clear custom form elements
     pcard.form.fields.imageTag.setAttribute('src', `dist/images/${image}.jpg`);
     pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${image}@2x.jpg 2x`);
-    // console.log(pcard.form.fields.imageEdit);
     pcard.form.fields.imageEdit.innerText = imageAction;
-    // console.log(pcard.form.fields.imageEdit.innerText);
-
-    // Remove favorite if needed
     pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
     pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
     pcard.form.fields.favorite.checked = false;
 
-    // console.info('4. if in read-mode switch to write mode and toggle details menu');
-    const form = document.getElementById('contact-details');
+    /** Prepare write mode **/
+    const container = document.querySelector('main');
+
+    // initiate write mode
     if (form.classList.contains('read-mode')) {
         toggleContactTriggers(pcard.triggers.contact.select);
         toggleReadWrite(true);
-
-        // Switch to contact view
-        const container = document.querySelector('main');
-        container.classList.toggle('view-change');
-        // Focus on name
-        setTimeout(document.getElementById('contact-details-name-field').focus(), 10);
     }
+
+    // switch to contact view
+    container.classList.toggle('view-change');
+
+    // focus on name field
+    setTimeout(document.getElementById(pcard.form.fields.nameId).focus(), 10);
 };
 
+/**
+ * Show contact data
+ **/
 const showContact = (contactData, contactId) => {
-    // console.log(`showing contact ${contactId}!`);
-    // console.dir(contactData);
-
-    /**
-     * Prepare contact data
-     * */
-    const detailsWrap = document.getElementById('contact-details-wrap');
+    /** Prepare contact data **/
+    const detailsWrap = document.getElementById(pcard.form.wrapperId);
     const contactDataProcessed = {};
+
+    // prepare custom form elements
     contactDataProcessed.image = contactData.image !== '' ? contactData.image : 'avatar-placeholder';
     contactDataProcessed.imageAction = contactData.image !== '' ? 'edit' : 'add';
     contactDataProcessed.favoriteChecked = contactData.favorite ? 'checked' : '';
-    // TODO: check why double newline character is not replaced by the first replace method
     contactDataProcessed.note = contactData.note.replace('\\n', '&#xA;').replace('\\n\\n', '&#xA;&#xA;');
 
-    /**
-     * Update contact data
-     * */
+    /** Update contact data **/
+    // prepare custom form elements
     detailsWrap.setAttribute('data-id', contactId);
-
     pcard.form.fields.imageTag.setAttribute('src', `dist/images/${contactDataProcessed.image}.jpg`);
     pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${contactDataProcessed.image}@2x.jpg 2x`);
     pcard.form.fields.imageEdit.text = contactDataProcessed.imageAction;
-    pcard.form.fields.name.value = contactData.name;
-    // pcard.form.fields.image = '';
     if (contactData.favorite) {
         pcard.form.fields.favoriteIconFalse.setAttribute('hidden', '');
         pcard.form.fields.favoriteIconTrue.removeAttribute('hidden');
@@ -159,6 +134,11 @@ const showContact = (contactData, contactId) => {
         pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
         pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
     }
+
+    // prepare fields
+    // todo: set file upload value
+    // pcard.form.fields.image = '${contactDataProcessed.image}.jpg';
+    pcard.form.fields.name.value = contactData.name;
     pcard.form.fields.favorite.checked = contactData.favorite;
     pcard.form.fields.phoneWork.value = contactData.phone.work;
     pcard.form.fields.phonePrivate.value = contactData.phone.private;
@@ -169,10 +149,11 @@ const showContact = (contactData, contactId) => {
     pcard.form.fields.addressCountry.value = contactData.address.country;
     pcard.form.fields.note.value = contactDataProcessed.note;
 
-    /**
-     * Update current form actions
-     * */
-    const formActionCall = document.getElementById('contact-details-actions-call');
+    /** Update current form actions **/
+    const formActionCall = pcard.triggers.contact.call;
+    const formActionMail = pcard.triggers.contact.mail;
+
+    // update phone actions
     if (contactData.phone.private !== '') {
         formActionCall.href = `tel:${contactData.phone.private}`;
         formActionCall.removeAttribute('disabled');
@@ -181,7 +162,7 @@ const showContact = (contactData, contactId) => {
         formActionCall.setAttribute('disabled', '');
     }
 
-    const formActionMail = document.getElementById('contact-details-actions-mail');
+    // update mail actions
     if (contactData.mail.private !== '') {
         formActionMail.href = `tel:${contactData.mail.private}`;
         formActionMail.removeAttribute('disabled');
@@ -191,173 +172,186 @@ const showContact = (contactData, contactId) => {
     }
 };
 
+/**
+ * Get selected contact data
+ **/
 const getContact = (contactTrigger) => {
     const contactId = contactTrigger.getAttribute('data-id');
-    // console.log(`getting contact ${contactId}!`);
     const contacts = ajaxGet(pcard.contacts.file);
 
     contacts.then((data) => {
         const jsonData = JSON.parse(data);
         const contactData = jsonData[contactId];
-        // console.log(contactData);
 
         showContact(contactData, contactId);
     });
 };
 
-const showContactList = () => {
-    // console.log('showing contact list!');
-};
-
+/**
+ * Add new contact to list
+ **/
 const addContactToList = (id, name, image, favorite) => {
-    // console.log('adding contact to list');
-
+    /** Prepare new list item **/
+    const listWrapper = document.querySelector('#contact-list-overview ul');
+    const listFragment = document.createDocumentFragment();
+    const listItem = document.createElement('li');
     const listItemMarkup = `
         <img src="dist/images/${image}.jpg" width="64" height="64" srcset="dist/images/${image}@2x.jpg 2x">
         <h2 class="name">${name}</h2>
         <svg class="icon-arrow-right" data-name="Arrow right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M20.394,37.469l11.9-11.9L31.721,25l-11.9,11.9a0.807,0.807,0,1,0,1.141,1.141l11.9-11.9-0.57-.57Z" fill="#676767"></path><path d="M20.394,12.531l11.9,11.9,0.57-.57-11.9-11.9A0.807,0.807,0,1,0,19.823,13.1L31.721,25l0.571-.571Z" fill="#676767"></path><rect x="31.888" y="24.597" width="0.807" height="0.807" transform="translate(-8.22 30.156) rotate(-45)" fill="#676767"></rect><rect x="32.459" y="25.167" width="0.807" height="0.807" transform="translate(-8.456 30.73) rotate(-45.005)" fill="#676767"></rect><rect x="33.029" y="24.597" width="0.807" height="0.807" transform="translate(-7.886 30.959) rotate(-44.995)" fill="#676767"></rect><rect x="32.459" y="24.026" width="0.807" height="0.807" transform="translate(-7.649 30.392) rotate(-45)" fill="#676767"></rect></svg>
         <svg ${favorite ? '' : 'hidden'} class="icon-star-filled" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"></path></svg>
     `;
-    const listItem = document.createElement('li');
+
+    // add properties to list item
     listItem.setAttribute('data-id', id);
     listItem.setAttribute('data-fav', favorite);
     listItem.innerHTML = listItemMarkup;
 
-    const listFragment = document.createDocumentFragment();
+    /** Use new list item **/
+    // append list item to dom
     listFragment.appendChild(listItem);
-
-    const listWrapper = document.querySelector('#contact-list-overview ul');
-
     listWrapper.appendChild(listFragment);
 
-    const newListItem = document.querySelector(`#contact-list-overview ul li[data-id="${id}"]`);
-    highlight(newListItem);
-    // console.dir(newListItem);
+    // fetch new list item from dom
+    const newListItem = document.querySelector(`${pcard.list.itemsQuery}[data-id="${id}"]`);
 
-    newListItem.addEventListener('click', e => onToggle(newListItem), false);
+    // add actions to new list item
+    highlight(newListItem);
+    newListItem.addEventListener('click', e => toggleView(), false);
 };
 
+/**
+ * Update contact list item
+ **/
 const updateContactList = (type, id, name, image, favorite) => {
-    // TODO: add to contact list if does't exist
-
-    // console.log('updating contact list!');
-    const updatedContact = document.querySelector(`#contact-list-overview li[data-id="${id}"]`);
-    // console.log(updatedContact);
+    const updatedContact = document.querySelector(`${pcard.list.itemsQuery}[data-id="${id}"]`);
 
     if (type === 'edit' && updatedContact) {
-        // update existing contact
+        console.log('add new contact');
         updatedContact.querySelector('h2').innerText = name;
         if (favorite) {
-            updatedContact.querySelector('svg.icon-star-filled').removeAttribute('hidden');
+            updatedContact.querySelector(pcard.list.item.iconFavQuery).removeAttribute('hidden');
         } else {
-            updatedContact.querySelector('svg.icon-star-filled').setAttribute('hidden', '');
+            updatedContact.querySelector(pcard.list.item.iconFavQuery).setAttribute('hidden', '');
         }
         highlight(updatedContact);
     } else if (type === 'edit') {
-        // add contact after deleting
-        // console.log('add to contact list after deleting');
+        console.log('edit contact');
         addContactToList(id, name, image, favorite);
     } else if (type === 'add') {
-        // add new contact
-        // console.log('add new contact');
+        console.log('add contact');
         addContactToList(id, name, image, favorite);
     } else if (type === 'delete') {
-        // console.log('remove from contact list');
+        console.log('delete contact');
         highlight(updatedContact);
         window.setTimeout(() => {
             updatedContact.remove();
         }, 750);
     } else {
-        // console.log('update contact list void');
+        console.log('update contact list void');
     }
 
+    /** Trigger empty text logic **/
     const listItems = document.querySelectorAll('#contact-list-overview li');
     emptyText(listItems);
 };
 
-const getContactList = () => {
-    // console.log('getting contact list!');
-    // contacts.then((data) => {
-    //     // console.log(JSON.parse(data));
-    // });
-    // showContactList();
-};
-
-function onToggle(contactTrigger) {
-    // console.log('change view!');
-
-    /**
-     * Smallscreen view toggle
-     *
-     * TODO: enhance class toggle logic for devices which use sm and md/lg media queries
-     * TODO: use js media query class and contactTrigger argument for logic
-     **/
+/**
+ * Toggle views
+ **/
+const toggleView = () => {
+    // todo: enhance class toggle logic for devices which use sm and md/lg media queries
+    // todo: use extra classes for list to contact & contact to list changes
 
     const container = document.querySelector('main');
     container.classList.toggle('view-change');
+};
 
-    // TODO: do not trigger getContact if contactTrigger has the same id as the current contact detail view
-    if (contactTrigger) {
-        getContact(contactTrigger);
-    }
-
-    const isWriteMode = document.getElementById('contact-details').classList.contains('write-mode');
+/**
+ * Switch to read mode
+ **/
+const readMode = () => {
+    const isWriteMode = document.getElementById(pcard.form.elementId).classList.contains('write-mode');
     if (isWriteMode) {
         toggleContactTriggers(pcard.triggers.contact.select);
         toggleReadWrite(false);
     }
-}
+};
 
 /**
  * Toggle between contacts
  **/
-function toggleContact() {
-    const listItems = document.querySelectorAll('#contact-list-overview li');
-    // When you click a list item, bring on the details view.
+const toggleContact = () => {
+    const listItems = document.querySelectorAll(pcard.list.itemsQuery);
     for (let i = 0; i < listItems.length; i++) {
-        listItems[i].addEventListener('click', e => onToggle(listItems[i]), false);
+        listItems[i].addEventListener('click', () => {
+            /** Switch to read mode **/
+            readMode();
+
+            /** toggle view (for small screens) */
+            toggleView();
+
+            /** Get contact **/
+            getContact(listItems[i]);
+        }, false);
     }
-}
+};
 
 /**
- * Smallscreen toggle back to contact list
+ * Toggle back to contact list
+ *
+ * smallscreen only
  **/
-function toggleToContactList() {
-    // And switch it back again when you click the back button
-    const backButton = document.querySelector('.back-button');
-    backButton.addEventListener('click', e => onToggle(false));
-}
+const toggleToContactList = () => {
+    const backButton = document.getElementById(pcard.triggers.contact.backId);
+    backButton.addEventListener('click', () => {
+        /** Switch to read mode **/
+        readMode();
+
+        /** toggle view (for small screens) */
+        toggleView();
+    });
+};
 
 /**
- * Contact functions
+ * Search filter for contact list
+ *
+ * todo: implement keyword search
  **/
-
-function filterContactList() {
-    const inputFilter = document.getElementById('contact-list-search-field');
+const filterContactList = () => {
+    const inputFilter = document.getElementById(pcard.list.searchInputId);
     inputFilter.addEventListener('keyup', function () {
         const inputValue = this.value;
         const filterList = document.getElementById(this.dataset.filter);
         const filterItems = filterList.querySelectorAll('li');
 
+        /** show matched list items */
         filterItems.forEach((filterItem) => {
             const titleTag = filterItem.querySelector('h2');
             const phrase = titleTag.innerText;
 
-            // TODO: implement keyword search
             if (phrase.search(new RegExp(inputValue, 'i')) < 0) {
                 filterItem.classList.add('is-hidden');
             } else {
                 filterItem.classList.remove('is-hidden');
             }
         });
+
+        /** update odd/even classes */
         striped(filterList);
     });
-}
+};
 
-function toggleFavoriteList(isFav, favButton, favButtonAlt, allButton, allButtonAlt) {
+/**
+ * Toggle between all- and favorite contacts
+ *
+ * todo: simplify logic
+ **/
+const toggleFavoriteList = (showFavorites, favButton, favButtonAlt, allButton, allButtonAlt) => {
     const filterList = document.getElementById(favButton.dataset.filter);
     const filterItems = filterList.querySelectorAll('li');
 
+    /** set active states */
     favButton.classList.toggle('active');
     allButton.classList.toggle('active');
 
@@ -373,8 +367,9 @@ function toggleFavoriteList(isFav, favButton, favButtonAlt, allButton, allButton
         allButtonAlt.classList.remove('active');
     }
 
+    /** show/hide non favorites favorites */
     filterItems.forEach((filterItem) => {
-        if (isFav) {
+        if (showFavorites) {
             const isFavorite = filterItem.getAttribute('data-fav');
             if (isFavorite) {
                 filterItem.classList.remove('is-hidden-fav');
@@ -386,59 +381,49 @@ function toggleFavoriteList(isFav, favButton, favButtonAlt, allButton, allButton
         }
     });
 
+    /** update odd/even classes */
     striped(filterList);
-}
-
-function toggleListView() {
-    // TODO: add to pcard options and variables
-    const favTrigger = document.getElementById('contact-list-actions-favorite');
-    const favTriggerAlt = document.getElementById('contact-list-favorite');
-
-    const allTrigger = document.getElementById('contact-list-actions-all');
-    const allTriggerAlt = document.getElementById('contact-list-all');
-
-    allTriggerAlt.addEventListener('click', () => {
-        allTrigger.click();
-    });
-
-    allTrigger.addEventListener('click', () => {
-        toggleFavoriteList(false, favTrigger, favTriggerAlt, allTrigger, allTriggerAlt);
-    });
-
-    favTriggerAlt.addEventListener('click', () => {
-        favTrigger.click();
-    });
-
-    favTrigger.addEventListener('click', () => {
-        toggleFavoriteList(true, favTrigger, favTriggerAlt, allTrigger, allTriggerAlt);
-    });
-}
+};
 
 /**
- * Contact functions
+ * List view listeners
  **/
+const toggleListView = () => {
+    const allTrigger = document.getElementById(pcard.triggers.list.allId);
+    const allTriggerAlt = document.getElementById(pcard.triggers.header.favId);
+    const favTrigger = document.getElementById(pcard.triggers.list.favId);
+    const favTriggerAlt = document.getElementById(pcard.triggers.header.favId);
 
+    /** toggle to all listeners */
+    allTriggerAlt.addEventListener('click', () => allTrigger.click());
+    allTrigger.addEventListener('click', () => toggleFavoriteList(false, favTrigger, favTriggerAlt, allTrigger, allTriggerAlt));
+
+    /** toggle to favorite listeners */
+    favTriggerAlt.addEventListener('click', () => favTrigger.click());
+    favTrigger.addEventListener('click', () => toggleFavoriteList(true, favTrigger, favTriggerAlt, allTrigger, allTriggerAlt));
+};
+
+/**
+ * Prepare contact form for editing
+ **/
 const editContact = (triggers) => {
-    // console.log('edit contact!');
     toggleContactTriggers(triggers);
     toggleReadWrite(true);
 };
 
+/**
+ * Save contact
+ *
+ * TODO: use AJAX POST to post the form directly to PHP (use ajaxPost promise helper)
+ * const form = formWrap.querySelector('#contact-details');
+ * const data = new FormData(form);
+ **/
 const saveContact = (triggers, exists = true) => {
-    // console.log('saving contact!');
-
     const formWrap = document.getElementById('contact-details-wrap');
-
-    // TODO: use AJAX POST to post the form directly to PHP (use ajaxPost promise helper)
-    // const form = formWrap.querySelector('#contact-details');
-    // const data = new FormData(form);
-
     const id = formWrap.getAttribute('data-id');
+
+    /** get field values */
     const name = document.getElementById('contact-details-name-field').value;
-    const imageRaw = document.querySelector('.has-image img').getAttribute('src');
-    const imageFileArray = imageRaw.split('/');
-    const imageNameArray = imageFileArray[2].split('.');
-    const image = imageNameArray[0];
     const phoneWork = document.getElementById('contact-details-phone-work-field').value;
     const phonePrivate = document.getElementById('contact-details-phone-mobile-field').value;
     const mailWork = document.getElementById('contact-details-mail-work-field').value;
@@ -448,6 +433,14 @@ const saveContact = (triggers, exists = true) => {
     const country = document.getElementById('contact-details-address-field-line-3').value;
     const note = document.getElementById('contact-details-note-field').value;
     const favorite = document.getElementById('contact-details-favorite-field').checked;
+
+    /** get custom form values */
+    const imageRaw = document.querySelector('.has-image img').getAttribute('src');
+    const imageFileArray = imageRaw.split('/');
+    const imageNameArray = imageFileArray[2].split('.');
+    const image = imageNameArray[0];
+
+    /** build contact object */
     const formData = {};
     formData[id] = {
         name,
@@ -469,32 +462,30 @@ const saveContact = (triggers, exists = true) => {
         favorite,
     };
 
+    /** post contact object */
     const JSONformData = JSON.stringify(formData);
-    // console.log(formData);
-
     const postScript = exists ? '/lib/ajax/save-contact.php' : '/lib/ajax/add-contact.php';
     const postType = exists ? 'edit' : 'add';
-
     ajaxPost(postScript, JSONformData);
 
+    /** update state */
     toggleContactTriggers(triggers);
     toggleReadWrite(false);
-
     updateContactList(postType, id, name, image, favorite);
 };
 
 const deleteContact = () => {
-    // console.log('deleting contact!');
-
     const formWrap = document.getElementById('contact-details-wrap');
+
+    /** get current contact id */
     const id = formWrap.getAttribute('data-id');
     const formData = {};
     formData[id] = {};
 
+    /** delete object by contact id */
     const JSONformData = JSON.stringify(formData);
-    // console.log(formData);
-
     ajaxPost('/lib/ajax/delete-contact.php', JSONformData);
 
+    /** update state */
     updateContactList('delete', id);
 };

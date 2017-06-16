@@ -11,6 +11,10 @@ const pcard = {
         fileDemo: '/data/contacts.demo.json',
     },
     triggers: {
+        header: {
+            allId: 'contact-list-all',
+            favId: 'contact-list-favorite',
+        },
         contact: {
             selectQuery: '#contact-details-actions button, #contact-details-actions .button',
             callId: 'contact-details-actions-call',
@@ -19,6 +23,7 @@ const pcard = {
             deleteId: 'contact-details-actions-delete',
             favId: 'contact-details-actions-favorite',
             saveId: 'contact-details-actions-save',
+            backId: 'contact-details-back',
         },
         list: {
             selectQuery: '#contact-list-actions button',
@@ -28,6 +33,7 @@ const pcard = {
         },
     },
     form: {
+        wrapperId: 'contact-details-wrap',
         elementId: 'contact-details',
         fields: {
             selectQuery: '#contact-details input, #contact-details textarea',
@@ -46,6 +52,15 @@ const pcard = {
             addressCityId: 'contact-details-address-field-line-2',
             addressCountryId: 'contact-details-address-field-line-3',
             noteId: 'contact-details-note-field',
+        },
+    },
+    list: {
+        wrapperId: 'contact-list-wrap',
+        elementId: 'contact-list-overview',
+        searchInputId: 'contact-list-search-field',
+        itemsQuery: '#contact-list-overview li',
+        item: {
+            iconFavQuery: 'svg.icon-star-filled',
         },
     },
 };

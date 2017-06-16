@@ -7,22 +7,22 @@ if(!$new_contact){
     echo PETTY;
     return false;
 }
-//d($new_contact);
 
 $contactsFile = CONTACT_FILE;
+
 if(file_exists($contactsFile)) {
     $current_contact_list_json = file_get_contents($contactsFile);
     $current_contact_list = json_decode($current_contact_list_json, true);
-//d($current_contact_list);
 
-    $updated_contact_list = $current_contact_list + $new_contact;
-//d($updated_contact_list);
-    asort($updated_contact_list);
+    if(empty($current_contact_list)){
+        $json_data = $new_contact_json;
+    } else{
+        $updated_contact_list = $current_contact_list + $new_contact;
+        asort($updated_contact_list);
+        $updated_contact_list_json = json_encode(asort($updated_contact_list), 128);
 
-    $updated_contact_list_json = json_encode(asort($updated_contact_list), JSON_PRETTY_PRINT);
-//d($updated_contact_list);
-
-    $json_data = $updated_contact_list_json;
+        $json_data = $updated_contact_list_json;
+    }
 } else {
     $json_data = $new_contact_json;
 }

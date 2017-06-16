@@ -9,20 +9,19 @@ if(!$delete_contact){
 } else {
     $delete_contact_id = key($delete_contact);
 }
-//d($delete_contact);
 
 $contactsFile = CONTACT_FILE;
 
 if(file_exists($contactsFile)) {
     $current_contact_list_json = file_get_contents($contactsFile);
     $current_contact_list = json_decode($current_contact_list_json, true);
-//d($current_contact_list);
 
-    unset($current_contact_list[$delete_contact_id]);
+    if(!empty($current_contact_list)){
+        unset($current_contact_list[$delete_contact_id]);
 
-    $updated_contact_list_json = json_encode($current_contact_list, JSON_PRETTY_PRINT);
-//d($current_contact_list);
+        $updated_contact_list_json = json_encode($current_contact_list, 128);
 
-    $json_data = $updated_contact_list_json;
-    file_put_contents($contactsFile, $json_data);
+        $json_data = $updated_contact_list_json;
+        file_put_contents($contactsFile, $json_data);
+    };
 }

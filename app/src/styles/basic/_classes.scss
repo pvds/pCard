@@ -1,8 +1,5 @@
-.is-hidden {
-    display: none;
-}
-
-.sr-only {
+//-- Display --//
+.is-hidden, .sr-only  {
     display: none;
 }
 
@@ -17,42 +14,7 @@
     border: 0;
 }
 
+//-- Visual appearance --//
 .is-round {
     border-radius: 50%;
-}
-
-@include media(sm-max){
-    .hidden-sm-down{
-        display: none;
-    }
-}
-
-@include media(sm){
-    .hidden-sm-up{
-        display: none;
-    }
-}
-
-@include media(md-max){
-    .hidden-md-down{
-        display: none;
-    }
-}
-
-@include media(md-only){
-    .hidden-md{
-        display: none;
-    }
-}
-
-@include media(md){
-    .hidden-md-up{
-        display: none;
-    }
-}
-
-@include media(lg){
-    .hidden-lg {
-        display: none;
-    }
 }

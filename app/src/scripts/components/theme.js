@@ -192,7 +192,7 @@ const getContact = (contactTrigger) => {
  **/
 const addContactToList = (id, name, image, favorite) => {
     /** Prepare new list item **/
-    const listWrapper = document.querySelector('#contact-list-overview ul');
+    const listWrapper = document.querySelector('#contact-list ul');
     const listFragment = document.createDocumentFragment();
     const listItem = document.createElement('li');
     const listItemMarkup = `
@@ -252,7 +252,7 @@ const updateContactList = (type, id, name, image, favorite) => {
     }
 
     /** Trigger empty text logic **/
-    const listItems = document.querySelectorAll('#contact-list-overview li');
+    const listItems = document.querySelectorAll('#contact-list li');
     emptyText(listItems);
 };
 
@@ -372,12 +372,12 @@ const toggleFavoriteList = (showFavorites, favButton, favButtonAlt, allButton, a
         if (showFavorites) {
             const isFavorite = filterItem.getAttribute('data-fav');
             if (isFavorite) {
-                filterItem.classList.remove('is-hidden-fav');
+                filterItem.classList.remove('not-fav');
             } else {
-                filterItem.classList.add('is-hidden-fav');
+                filterItem.classList.add('not-fav');
             }
         } else {
-            filterItem.classList.remove('is-hidden-fav');
+            filterItem.classList.remove('not-fav');
         }
     });
 

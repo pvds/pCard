@@ -67,9 +67,9 @@ const autogrow = (el, padding = 0) => {
  * todo: use pcard option variables
  **/
 const striped = (filterList) => {
-    const listWrapper = document.getElementById('contact-list-overview');
+    const listWrapper = document.getElementById(pcard.list.elementId);
     const allItems = filterList.querySelectorAll('li');
-    const visibleItems = filterList.querySelectorAll('li:not(.is-hidden):not(.is-hidden-fav)');
+    const visibleItems = filterList.querySelectorAll('li:not(.is-hidden):not(.not-fav)');
 
     // set filtered class for styling purposed
     // todo: remove the need for this class by using striped on dom load
@@ -109,7 +109,7 @@ const highlight = (target, duration = 750) => {
  * todo: use pcard option variables
  **/
 const emptyText = (listItems) => {
-    const emptyTextEl = document.getElementById('contact-list-empty');
+    const emptyTextEl = document.getElementById(pcard.list.emptyMessageId);
     if (emptyTextEl) {
         if (listItems.length === 1) {
             emptyTextEl.innerText = 'That looks better!';

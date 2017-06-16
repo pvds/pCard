@@ -34,14 +34,10 @@ main {
         #contact-details-wrap {
 
         }
-        #contact-list-overview {
+        #contact-list {
             height: calc(100vh - 135px);
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
-        }
-        #contact-list-actions, #contact-details-actions {
-            //position: fixed;
-            //bottom: 0;
         }
         #contact-details {
             height: calc(100vh - 135px);
@@ -63,7 +59,7 @@ main {
             .view {
                 height: 100%;
             }
-            #contact-list-overview {
+            #contact-list {
                 height: 100%;
             }
             #contact-details {
@@ -78,7 +74,7 @@ main {
             float: left;
             width: $contact-list-width;
         }
-        #contact-list-overview {
+        #contact-list {
             height: calc(100vh - (#{$menu-list-height} + 61px));
             overflow: scroll;
         }

@@ -56,9 +56,10 @@ const pcard = {
     },
     list: {
         wrapperId: 'contact-list-wrap',
-        elementId: 'contact-list-overview',
+        elementId: 'contact-list',
         searchInputId: 'contact-list-search-field',
-        itemsQuery: '#contact-list-overview li',
+        emptyMessageId: 'contact-list-empty',
+        itemsQuery: '#contact-list li',
         item: {
             iconFavQuery: 'svg.icon-star-filled',
         },

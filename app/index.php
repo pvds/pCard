@@ -15,6 +15,17 @@
     <meta name="keywords" content="contact, address, vcard"/>
     <meta name="author" content="pCard">
 
+    <!-- favicons -->
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="dist/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="dist/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="dist/images/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="dist/images/safari-pinned-tab.svg" color="#666666">
+    <meta name="apple-mobile-web-app-title" content="pCard">
+    <meta name="application-name" content="pCard">
+    <meta name="theme-color" content="#f3f3f3">
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="dist/styles/app.css">
 

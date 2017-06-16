@@ -71,7 +71,64 @@ const toggleFavorite = () => {
 
 // TODO: rename to all 'add' instances to 'create'
 const addContact = () => {
-    // console.log('adding new contact!');
+    console.info('0. start adding new contact!');
+
+    console.info('1. get highest id');
+    const listItems = document.querySelectorAll('#contact-list-overview li');
+    console.log(listItems);
+    let highest = 0;
+    if (listItems.length > 0) {
+        const listItemIds = new Map();
+        listItems.forEach((listItem) => {
+            const id = listItem.getAttribute('data-id');
+            listItemIds.set(id, id);
+        });
+        highest = Math.max(...listItemIds.values());
+        console.log(highest);
+    }
+
+    console.info('2. set data-id as (highest id + 1) on wrapper');
+    const newListItemId = highest + 1;
+    const formWrapper = document.getElementById('contact-details-wrap');
+    formWrapper.setAttribute('data-id', newListItemId);
+    console.log(newListItemId);
+
+
+    console.info('3. clear current form');
+    // Clear form fields
+    pcard.form.fields.select.forEach((field) => {
+        field.value = '';
+    });
+    // Set placeholder avatar
+    const image = 'avatar-placeholder';
+    const imageAction = 'add';
+    pcard.form.fields.imageTag.setAttribute('src', `dist/images/${image}.jpg`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${image}@2x.jpg 2x`);
+    console.log(pcard.form.fields.imageEdit);
+    pcard.form.fields.imageEdit.innerText = imageAction;
+    console.log(pcard.form.fields.imageEdit.innerText);
+
+    // Remove favorite if needed
+    pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
+    pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
+
+    console.info('4. if in read-mode switch to write mode and toggle details menu');
+    const form = document.getElementById('contact-details');
+    if (form.classList.contains('read-mode')) {
+        toggleContactTriggers(pcard.triggers.contact.select);
+        toggleReadWrite(true);
+    }
+
+    console.info('5. trigger save contact function');
+    // TODO: check why every new contact is favorite
+
+    console.info('6. add contact to contact list');
+    // build in save contact
+
+    console.info('7. add listener for new contact list item');
+    // build in save contact
+
+    console.info('PHP: add-contact.php > build in check if json file exists, otherwise create it');
 };
 
 const showContact = (contactData, contactId) => {
@@ -141,7 +198,7 @@ const showContact = (contactData, contactId) => {
 const getContact = (contactTrigger) => {
     const contactId = contactTrigger.getAttribute('data-id');
     // console.log(`getting contact ${contactId}!`);
-    const contacts = ajaxGet('/data/contacts.demo.json');
+    const contacts = ajaxGet(pcard.contacts.file);
 
     contacts.then((data) => {
         const jsonData = JSON.parse(data);

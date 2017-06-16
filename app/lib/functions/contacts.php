@@ -1,7 +1,7 @@
 <?php
 
 function getContactData($single_contact = false, $contact_id = 1){
-    $jsondata = file_exists("data/contacts.demo.json") ? file_get_contents('data/contacts.demo.json') : false;
+    $jsondata = file_exists(CONTACT_FILE) ? file_get_contents(CONTACT_FILE) : false;
     if($jsondata){
         $data = json_decode($jsondata, true);
         if($single_contact){

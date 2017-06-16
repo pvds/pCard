@@ -11,14 +11,18 @@ if(!$delete_contact){
 }
 //d($delete_contact);
 
-$contactsFile = "../../data/contacts.demo.json";
-$current_contact_list_json = file_get_contents($contactsFile);
-$current_contact_list = json_decode($current_contact_list_json, true);
+$contactsFile = CONTACT_FILE;
+
+if(file_exists($contactsFile)) {
+    $current_contact_list_json = file_get_contents($contactsFile);
+    $current_contact_list = json_decode($current_contact_list_json, true);
 //d($current_contact_list);
 
-unset($current_contact_list[$delete_contact_id]);
+    unset($current_contact_list[$delete_contact_id]);
 
-$updated_contact_list_json = json_encode($current_contact_list, JSON_PRETTY_PRINT);
+    $updated_contact_list_json = json_encode($current_contact_list, JSON_PRETTY_PRINT);
 //d($current_contact_list);
 
-file_put_contents($contactsFile,$updated_contact_list_json);
+    $json_data = $updated_contact_list_json;
+    file_put_contents($contactsFile, $json_data);
+}

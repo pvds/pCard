@@ -6,6 +6,10 @@ const pcard = {
     theme: {
         textareaId: 'contact-details-note-field',
     },
+    contacts: {
+        file: '/data/contacts.json',
+        fileDemo: '/data/contacts.demo.json',
+    },
     triggers: {
         contact: {
             selectQuery: '#contact-details-actions button, #contact-details-actions .button',

@@ -25,3 +25,4 @@ node_modules/
 
 # Build folders
 app/dist/
+app/data/contacts.json

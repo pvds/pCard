@@ -1,5 +1,5 @@
 <?php
-
+// TODO: set dynamic logic to grab last viewed contact (get from settings.json)
 function getContactData($single_contact = false, $contact_id = 1){
     $jsondata = file_exists(CONTACT_FILE) ? file_get_contents(CONTACT_FILE) : false;
     if($jsondata){

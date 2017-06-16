@@ -45,7 +45,7 @@ require "lib/config/contacts.php";
         include "views/contact-list-actions.php";
         ?>
     </div>
-    <section id="contact-details-wrap" class="view details-view" data-id="<?=$contact['contact_id']?>">
+    <section id="contact-details-wrap" class="view details-view" data-id="<?=$contact['contact_id'] ? $contact['contact_id'] : 1 ?>">
         <?php
         include "views/contact-details-menu.php";
         include "views/contact-details.php";

@@ -73,3 +73,16 @@ const highlight = (target, duration = 750) => {
     }, timeout);
 };
 
+const emptyText = (listItems) => {
+    const emptyTextEl = document.getElementById('contact-list-empty');
+    if (emptyTextEl) {
+        if (listItems.length === 1) {
+            emptyTextEl.innerText = 'That looks better!';
+        } else if (listItems.length > 1) {
+            emptyTextEl.classList.add('is-hidden');
+        } else {
+            emptyTextEl.innerText = 'It\'s kind of lonely here, again..';
+            emptyTextEl.classList.remove('is-hidden');
+        }
+    }
+};

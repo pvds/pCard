@@ -156,24 +156,73 @@ const showContactList = () => {
     // console.log('showing contact list!');
 };
 
-const updateContactList = (id, name, favorite) => {
+const addContactToList = (id, name, image, favorite) => {
+    // console.log('adding contact to list');
+
+    const listItemMarkup = `
+        <img src="dist/images/${image}.jpg" width="64" height="64" srcset="dist/images/${image}@2x.jpg 2x">
+        <h2 class="name">${name}</h2>
+        <svg class="icon-arrow-right" data-name="Arrow right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M20.394,37.469l11.9-11.9L31.721,25l-11.9,11.9a0.807,0.807,0,1,0,1.141,1.141l11.9-11.9-0.57-.57Z" fill="#676767"></path><path d="M20.394,12.531l11.9,11.9,0.57-.57-11.9-11.9A0.807,0.807,0,1,0,19.823,13.1L31.721,25l0.571-.571Z" fill="#676767"></path><rect x="31.888" y="24.597" width="0.807" height="0.807" transform="translate(-8.22 30.156) rotate(-45)" fill="#676767"></rect><rect x="32.459" y="25.167" width="0.807" height="0.807" transform="translate(-8.456 30.73) rotate(-45.005)" fill="#676767"></rect><rect x="33.029" y="24.597" width="0.807" height="0.807" transform="translate(-7.886 30.959) rotate(-44.995)" fill="#676767"></rect><rect x="32.459" y="24.026" width="0.807" height="0.807" transform="translate(-7.649 30.392) rotate(-45)" fill="#676767"></rect></svg>
+        <svg ${favorite ? '' : 'hidden'} class="icon-star-filled" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"></path></svg>
+    `;
+    const listItem = document.createElement('li');
+    listItem.setAttribute('data-id', id);
+    listItem.setAttribute('data-fav', favorite);
+    listItem.innerHTML = listItemMarkup;
+
+    const listFragment = document.createDocumentFragment();
+    listFragment.appendChild(listItem);
+
+    const listWrapper = document.querySelector('#contact-list-overview ul');
+
+    listWrapper.appendChild(listFragment);
+
+    const newListItem = document.querySelector(`#contact-list-overview ul li[data-id="${id}"]`);
+    highlight(newListItem);
+    // console.dir(newListItem);
+
+    newListItem.addEventListener('click', e => onToggle(newListItem), false);
+};
+
+const updateContactList = (type, id, name, image, favorite) => {
+    // TODO: add to contact list if does't exist
+
     // console.log('updating contact list!');
     const updatedContact = document.querySelector(`#contact-list-overview li[data-id="${id}"]`);
+    // console.log(updatedContact);
 
-    updatedContact.querySelector('h2').innerText = name;
-    if (favorite) {
-        updatedContact.querySelector('svg.icon-star-filled').removeAttribute('hidden');
+    if (type === 'edit' && updatedContact) {
+        // update existing contact
+        updatedContact.querySelector('h2').innerText = name;
+        if (favorite) {
+            updatedContact.querySelector('svg.icon-star-filled').removeAttribute('hidden');
+        } else {
+            updatedContact.querySelector('svg.icon-star-filled').setAttribute('hidden', '');
+        }
+        highlight(updatedContact);
+    } else if (type === 'edit') {
+        // add contact after deleting
+        // console.log('add to contact list after deleting');
+        addContactToList(id, name, image, favorite);
+    } else if (type === 'add') {
+        // add new contact
+        // console.log('add new contact');
+        addContactToList(id, name, image, favorite);
+    } else if (type === 'delete') {
+        // console.log('remove from contact list');
+        highlight(updatedContact);
+        window.setTimeout(() => {
+            updatedContact.remove();
+        }, 750);
     } else {
-        updatedContact.querySelector('svg.icon-star-filled').setAttribute('hidden', '');
+        // console.log('update contact list void');
     }
-
-    highlight(updatedContact);
 };
 
 const getContactList = () => {
     // console.log('getting contact list!');
     // contacts.then((data) => {
-    //     console.log(JSON.parse(data));
+    //     // console.log(JSON.parse(data));
     // });
     // showContactList();
 };
@@ -319,7 +368,7 @@ const editContact = (triggers) => {
     toggleReadWrite(true);
 };
 
-const saveContact = (triggers) => {
+const saveContact = (triggers, exists = true) => {
     // console.log('saving contact!');
 
     const formWrap = document.getElementById('contact-details-wrap');
@@ -367,14 +416,29 @@ const saveContact = (triggers) => {
     const JSONformData = JSON.stringify(formData);
     // console.log(formData);
 
-    ajaxPost('/lib/ajax/save-contact.php', JSONformData);
+    const postScript = exists ? '/lib/ajax/save-contact.php' : '/lib/ajax/add-contact.php';
+    const postType = exists ? 'edit' : 'add';
+
+    ajaxPost(postScript, JSONformData);
 
     toggleContactTriggers(triggers);
     toggleReadWrite(false);
 
-    updateContactList(id, name, favorite);
+    updateContactList(postType, id, name, image, favorite);
 };
 
 const deleteContact = () => {
     // console.log('deleting contact!');
+
+    const formWrap = document.getElementById('contact-details-wrap');
+    const id = formWrap.getAttribute('data-id');
+    const formData = {};
+    formData[id] = {};
+
+    const JSONformData = JSON.stringify(formData);
+    // console.log(formData);
+
+    ajaxPost('/lib/ajax/delete-contact.php', JSONformData);
+
+    updateContactList('delete', id);
 };

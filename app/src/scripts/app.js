@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pcard.triggers.contact.edit.addEventListener('click', () => editContact(pcard.triggers.contact.select));
     pcard.triggers.contact.save.addEventListener('click', () => saveContact(pcard.triggers.contact.select));
+    pcard.triggers.contact.delete.addEventListener('click', () => deleteContact(pcard.triggers.contact.select));
     pcard.form.fields.note.addEventListener('keyup', () => autogrow(pcard.form.fields.note, 20));
 
     /**

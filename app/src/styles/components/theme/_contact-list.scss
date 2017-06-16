@@ -70,6 +70,9 @@
     }
     &.is-filtered{
         li{
+            &:nth-child(odd) {
+                background: $white;
+            }
             &.is-odd{
                 background: $grey-light;
                 &:hover {

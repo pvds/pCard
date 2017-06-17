@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pcard.triggers.contact.save.addEventListener('click', () => saveContact(pcard.triggers.contact.select));
     pcard.triggers.contact.delete.addEventListener('click', () => deleteContact(pcard.triggers.contact.select));
     pcard.triggers.list.add.addEventListener('click', () => addContact());
-    pcard.form.fields.image.addEventListener('change', () => showImage(pcard.form.fields.image));
+    pcard.form.fields.image.addEventListener('change', () => processImage(pcard.form.fields.image));
     pcard.list.searchInput.addEventListener('keyup', () => filterContactList());
 
     /**

@@ -64,6 +64,39 @@ const showImage = (input) => {
 };
 
 /**
+ * AJAX post to save image with PHP
+ *
+ * todo: use postAJAX function
+ **/
+const postImage = (form, file, name) => {
+    const target = '/lib/ajax/save-image.php';
+    const formData = new FormData(form);
+    const request = new XMLHttpRequest();
+
+    formData.append('image-name', name);
+
+    request.open('POST', target, true);
+    request.onload = function () {
+        // todo: decide whether to use uploaded image or keep dataURL as preview
+        console.dir(request);
+    };
+    request.onerror = function () {
+        // There was a connection error of some sort
+    };
+    request.send(formData);
+};
+
+const processImage = (input) => {
+    const contactId = document.getElementById(pcard.form.wrapperId).getAttribute('data-id');
+    const form = document.forms.namedItem('contact-form');
+    const imageFile = input.files[0];
+    const imageName = `avatar-${contactId}`;
+
+    showImage(input);
+    postImage(form, imageFile, imageName);
+};
+
+/**
  * Toggle views
  **/
 const toggleView = () => {

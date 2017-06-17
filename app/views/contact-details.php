@@ -1,4 +1,4 @@
-<form id="contact-details" class="read-mode">
+<form id="contact-details" class="read-mode" enctype="multipart/form-data" method="post" name="contact-form">
     <header id="contact-details-header">
         <div class="form-control has-image">
             <label for="contact-details-image-field">
@@ -10,7 +10,7 @@
                     <span id='edit-image-field' class='is-hidden'><span id='edit-image-field-action'>add</span><br/>photo</span>
                 <?php } ?>
             </label>
-            <input disabled hidden id="contact-details-image-field" accept="image/*" type="file"/>
+            <input disabled hidden id="contact-details-image-field" name="contact-image" accept="image/*" type="file"/>
         </div>
         <div class="form-control has-name">
             <input disabled id="contact-details-name-field" type="text" title="contact name" value="<?=$contact['name']?>"/>

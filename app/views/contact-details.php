@@ -6,14 +6,14 @@
                     echo $contact['image-html'];
                 } else { ?>
                     <!-- By Google, Chromium project [BSD (http://opensource.org/licenses/bsd-license.php)], via Wikimedia Commons -->
-                    <img id="contact-details-image" src='dist/images/avatar-placeholder.jpg' width='64' height='64' srcset='dist/images/avatar-placeholder@2x.jpg 2x'/>
+                    <img id="contact-details-image" src='dist/images/avatar-placeholder.jpg' width='64' height='64' srcset='dist/images/avatar-placeholder.jpg 2x'/>
                     <span id='edit-image-field' class='is-hidden'><span id='edit-image-field-action'>add</span><br/>photo</span>
                 <?php } ?>
             </label>
-            <input disabled hidden id="contact-details-image-field" name="contact-image" accept="image/*" type="file"/>
+            <input disabled hidden id="contact-details-image-field" name="contact-image" accept="image/jpeg" type="file"/>
         </div>
         <div class="form-control has-name">
-            <input disabled id="contact-details-name-field" type="text" title="contact name" value="<?=$contact['name']?>"/>
+            <input required disabled id="contact-details-name-field" type="text" title="contact name" value="<?=$contact['name']?>"/>
         </div>
         <div class="form-control has-favorite">
             <label for="contact-details-favorite-field">

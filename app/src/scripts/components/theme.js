@@ -3,7 +3,8 @@
  * todo: make multipurpose
  * todo: use pcard option variables
  **/
-const striped = (filterList) => {
+const striped = () => {
+    const filterList = document.querySelector('#contact-list ul');
     const listWrapper = document.getElementById(pcard.list.elementId);
     const allItems = filterList.querySelectorAll('li');
     const visibleItems = filterList.querySelectorAll('li:not(.is-hidden):not(.not-fav)');
@@ -86,6 +87,9 @@ const postImage = (form, file, name) => {
     request.send(formData);
 };
 
+/**
+ * Process uploaded image files
+ **/
 const processImage = (input) => {
     const contactId = document.getElementById(pcard.form.wrapperId).getAttribute('data-id');
     const form = document.forms.namedItem('contact-form');

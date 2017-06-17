@@ -1,6 +1,12 @@
 /**
  * Fix
  * todo: set mail and call links to disabled by default, enable when email available
+ * todo: resize images in PHP and save @2x version [128x128px] and normal version [64x64px]
+ * todo: use new FormData(form) for POST > change PHP logic in ajax/*.php files
+ * todo: save images to app/avatars (app/dist/images is cleared on build)
+ * todo: add support for multiple image extensions >
+ *      todo: upload image on save
+ *      todo: save image with extension to contacts.json
  *
  * Extra functions
  * todo: export_contact
@@ -87,7 +93,7 @@ const showContact = (contactData, contactId) => {
     // prepare custom form elements
     detailsWrap.setAttribute('data-id', contactId);
     pcard.form.fields.imageTag.setAttribute('src', `dist/images/${contactDataProcessed.image}.jpg`);
-    pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${contactDataProcessed.image}@2x.jpg 2x`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${contactDataProcessed.image}.jpg 2x`);
     pcard.form.fields.imageEdit.text = contactDataProcessed.imageAction;
     if (contactData.favorite) {
         pcard.form.fields.favoriteIconFalse.setAttribute('hidden', '');
@@ -181,10 +187,9 @@ const saveContact = (triggers, exists = true) => {
     const favorite = document.getElementById('contact-details-favorite-field').checked;
 
     /** get custom form values */
-    const imageRaw = document.querySelector('.has-image img').getAttribute('src');
-    const imageFileArray = imageRaw.split('/');
-    const imageNameArray = imageFileArray[2].split('.');
-    const image = imageNameArray[0];
+    // todo: check whether to save image on save, or on upload
+    // currently image is saved on upload
+    const image = `avatar-${id}`;
 
     /** build contact object */
     const formData = {};
@@ -324,7 +329,7 @@ const addContactToList = (id, name, image, favorite) => {
     const listFragment = document.createDocumentFragment();
     const listItem = document.createElement('li');
     const listItemMarkup = `
-        <img src="dist/images/${image}.jpg" width="64" height="64" srcset="dist/images/${image}@2x.jpg 2x">
+        <img src="dist/images/${image}.jpg" width="64" height="64" srcset="dist/images/${image}.jpg 2x">
         <h2 class="name">${name}</h2>
         <svg class="icon-arrow-right" data-name="Arrow right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M20.394,37.469l11.9-11.9L31.721,25l-11.9,11.9a0.807,0.807,0,1,0,1.141,1.141l11.9-11.9-0.57-.57Z" fill="#676767"></path><path d="M20.394,12.531l11.9,11.9,0.57-.57-11.9-11.9A0.807,0.807,0,1,0,19.823,13.1L31.721,25l0.571-.571Z" fill="#676767"></path><rect x="31.888" y="24.597" width="0.807" height="0.807" transform="translate(-8.22 30.156) rotate(-45)" fill="#676767"></rect><rect x="32.459" y="25.167" width="0.807" height="0.807" transform="translate(-8.456 30.73) rotate(-45.005)" fill="#676767"></rect><rect x="33.029" y="24.597" width="0.807" height="0.807" transform="translate(-7.886 30.959) rotate(-44.995)" fill="#676767"></rect><rect x="32.459" y="24.026" width="0.807" height="0.807" transform="translate(-7.649 30.392) rotate(-45)" fill="#676767"></rect></svg>
         <svg ${favorite ? '' : 'hidden'} class="icon-star-filled" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"></path></svg>
@@ -345,7 +350,12 @@ const addContactToList = (id, name, image, favorite) => {
 
     // add actions to new list item
     highlight(newListItem);
-    newListItem.addEventListener('click', e => toggleView(), false);
+    newListItem.addEventListener('click', () => {
+        getContact();
+        toggleView();
+    }, false);
+
+    striped();
 };
 
 /**
@@ -355,8 +365,9 @@ const updateContactList = (type, id, name, image, favorite) => {
     const updatedContact = document.querySelector(`${pcard.list.itemsQuery}[data-id="${id}"]`);
 
     if (type === 'edit' && updatedContact) {
-        console.log('add new contact');
         updatedContact.querySelector('h2').innerText = name;
+        updatedContact.querySelector('img').setAttribute('src', `dist/images/${image}.jpg?${new Date().getTime()}`);
+        updatedContact.querySelector('img').setAttribute('srcset', `dist/images/${image}.jpg?${new Date().getTime()} 2x`);
         if (favorite) {
             updatedContact.querySelector(pcard.list.item.iconFavQuery).removeAttribute('hidden');
         } else {
@@ -364,23 +375,21 @@ const updateContactList = (type, id, name, image, favorite) => {
         }
         highlight(updatedContact);
     } else if (type === 'edit') {
-        console.log('edit contact');
         addContactToList(id, name, image, favorite);
     } else if (type === 'add') {
-        console.log('add contact');
         addContactToList(id, name, image, favorite);
     } else if (type === 'delete') {
-        console.log('delete contact');
         highlight(updatedContact);
         window.setTimeout(() => {
             updatedContact.remove();
+            striped();
         }, 750);
-    } else {
-        console.log('update contact list void');
     }
 
     /** Trigger empty text logic **/
     const listItems = document.querySelectorAll('#contact-list li');
+    toggleContact();
+    striped();
     emptyText(listItems);
 };
 
@@ -465,7 +474,7 @@ const toggleFavoriteList = (showFavorites, favButton, favButtonAlt, allButton, a
     });
 
     /** update odd/even classes */
-    striped(filterList);
+    striped();
 };
 
 /**
@@ -516,5 +525,5 @@ const filterContactList = () => {
     });
 
     /** update odd/even classes */
-    striped(filterList);
+    striped();
 };

@@ -55,12 +55,12 @@ const showImage = (input) => {
     const reader = new FileReader();
 
     reader.onload = (e) => {
-        // get loaded data and render thumbnail.
+        // get loaded data and render thumbnail
         pcard.form.fields.imageTag.setAttribute('src', e.target.result);
         pcard.form.fields.imageTag.setAttribute('srcset', e.target.result);
     };
 
-    // read the image file as a data URL.
+    // read the image file as a data URL
     reader.readAsDataURL(input.files[0]);
 };
 
@@ -77,11 +77,11 @@ const postImage = (form, file, name) => {
     formData.append('image-name', name);
 
     request.open('POST', target, true);
-    request.onload = function () {
+    request.onload = () => {
         // todo: decide whether to use uploaded image or keep dataURL as preview
         console.dir(request);
     };
-    request.onerror = function () {
+    request.onerror = () => {
         // There was a connection error of some sort
     };
     request.send(formData);
@@ -91,13 +91,25 @@ const postImage = (form, file, name) => {
  * Process uploaded image files
  **/
 const processImage = (input) => {
-    const contactId = document.getElementById(pcard.form.wrapperId).getAttribute('data-id');
     const form = document.forms.namedItem('contact-form');
     const imageFile = input.files[0];
-    const imageName = `avatar-${contactId}`;
+    const imageName = getImageName(input);
 
     showImage(input);
     postImage(form, imageFile, imageName);
+};
+
+const getImageName = (input) => {
+    const imageFile = input.files[0];
+    if (imageFile) {
+        const imageNameRaw = imageFile.name;
+        const imageNameRawParts = imageNameRaw.split('.');
+        const imageExtension = imageNameRawParts[imageNameRawParts.length - 1];
+        const contactId = document.getElementById(pcard.form.wrapperId).getAttribute('data-id');
+
+        return `avatar-${contactId}.${imageExtension}`;
+    }
+    return false;
 };
 
 /**

@@ -2,7 +2,7 @@
  * Fix
  * todo: set mail and call links to disabled by default, enable when email available
  * todo: resize images in PHP and save @2x version [128x128px] and normal version [64x64px]
- * todo: use new FormData(form) for POST > change PHP logic in ajax/*.php files
+ * todo: use FormData(form) for POST > change PHP logic in ajax/*.php files
  * todo: add support for multiple image extensions >
  *      todo: upload image on save
  *      todo: save image with extension to contacts.json
@@ -42,7 +42,7 @@ const addContact = () => {
     formWrapper.setAttribute('data-id', newListItemId);
 
     /** Clear current form **/
-    const image = 'avatar-placeholder';
+    const placeholderImage = 'avatar-placeholder.jpg';
     const imageAction = 'add';
 
     // clear field values
@@ -51,8 +51,8 @@ const addContact = () => {
     });
 
     // clear custom form elements
-    pcard.form.fields.imageTag.setAttribute('src', `avatars/${image}.jpg`);
-    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${image}@2x.jpg 2x`);
+    pcard.form.fields.imageTag.setAttribute('src', `avatars/${placeholderImage}`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${placeholderImage} 2x`);
     pcard.form.fields.imageEdit.innerText = imageAction;
     pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
     pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
@@ -80,10 +80,10 @@ const addContact = () => {
 const showContact = (contactData, contactId) => {
     /** Prepare contact data **/
     const detailsWrap = document.getElementById(pcard.form.wrapperId);
+    const timestamp = new Date().getTime();
     const contactDataProcessed = {};
 
     // prepare custom form elements
-    contactDataProcessed.image = contactData.image !== '' ? contactData.image : 'avatar-placeholder';
     contactDataProcessed.imageAction = contactData.image !== '' ? 'edit' : 'add';
     contactDataProcessed.favoriteChecked = contactData.favorite ? 'checked' : '';
     contactDataProcessed.note = contactData.note.replace('\\n', '&#xA;').replace('\\n\\n', '&#xA;&#xA;');
@@ -91,8 +91,9 @@ const showContact = (contactData, contactId) => {
     /** Update contact data **/
     // prepare custom form elements
     detailsWrap.setAttribute('data-id', contactId);
-    pcard.form.fields.imageTag.setAttribute('src', `avatars/${contactDataProcessed.image}.jpg?${new Date().getTime()}`);
-    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${contactDataProcessed.image}.jpg?${new Date().getTime()} 2x`);
+    pcard.form.fields.image.setAttribute('data-image', contactData.image);
+    pcard.form.fields.imageTag.setAttribute('src', `avatars/${contactData.image}?${timestamp}`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${contactData.image}?${timestamp} 2x`);
     pcard.form.fields.imageEdit.text = contactDataProcessed.imageAction;
     if (contactData.favorite) {
         pcard.form.fields.favoriteIconFalse.setAttribute('hidden', '');
@@ -104,7 +105,7 @@ const showContact = (contactData, contactId) => {
 
     // prepare fields
     // todo: set file upload value
-    // pcard.form.fields.image = '${contactDataProcessed.image}.jpg';
+    // pcard.form.fields.image = contactDataProcessed.image;
     pcard.form.fields.name.value = contactData.name;
     pcard.form.fields.favorite.checked = contactData.favorite;
     pcard.form.fields.phoneWork.value = contactData.phone.work;
@@ -169,11 +170,13 @@ const editContact = (triggers) => {
  * const form = formWrap.querySelector('#contact-details');
  * const data = new FormData(form);
  **/
-const saveContact = (triggers, exists = true) => {
+const saveContact = (triggers, contactExists = true) => {
     const formWrap = document.getElementById('contact-details-wrap');
     const id = formWrap.getAttribute('data-id');
 
     /** get field values */
+    // todo use pcard option ids
+    const fileImageAttribute = document.getElementById('contact-details-image-field').getAttribute('data-image');
     const name = document.getElementById('contact-details-name-field').value;
     const phoneWork = document.getElementById('contact-details-phone-work-field').value;
     const phonePrivate = document.getElementById('contact-details-phone-mobile-field').value;
@@ -185,10 +188,9 @@ const saveContact = (triggers, exists = true) => {
     const note = document.getElementById('contact-details-note-field').value;
     const favorite = document.getElementById('contact-details-favorite-field').checked;
 
-    /** get custom form values */
-    // todo: check whether to save image on save, or on upload
-    // currently image is saved on upload
-    const image = `avatar-${id}`;
+    /** get updated image, otherwise use to saved image, otherwise use placeholder */
+    const imageName = getImageName(pcard.form.fields.image) || fileImageAttribute;
+    const image = imageName || 'avatar-placeholder.jpg';
 
     /** build contact object */
     const formData = {};
@@ -214,8 +216,8 @@ const saveContact = (triggers, exists = true) => {
 
     /** post contact object */
     const JSONformData = JSON.stringify(formData);
-    const postScript = exists ? '/lib/ajax/save-contact.php' : '/lib/ajax/add-contact.php';
-    const postType = exists ? 'edit' : 'add';
+    const postScript = contactExists ? '/lib/ajax/save-contact.php' : '/lib/ajax/add-contact.php';
+    const postType = contactExists ? 'edit' : 'add';
     ajaxPost(postScript, JSONformData);
 
     /** update state */
@@ -327,8 +329,9 @@ const addContactToList = (id, name, image, favorite) => {
     const listWrapper = document.querySelector('#contact-list ul');
     const listFragment = document.createDocumentFragment();
     const listItem = document.createElement('li');
+    const timestamp = new Date().getTime();
     const listItemMarkup = `
-        <img src="avatars/${image}.jpg?${new Date().getTime()}" width="64" height="64" srcset="avatars/${image}.jpg?${new Date().getTime()} 2x">
+        <img src="avatars/${image}?${new Date().getTime()}" width="64" height="64" srcset="avatars/${image}?${timestamp} 2x">
         <h2 class="name">${name}</h2>
         <svg class="icon-arrow-right" data-name="Arrow right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M20.394,37.469l11.9-11.9L31.721,25l-11.9,11.9a0.807,0.807,0,1,0,1.141,1.141l11.9-11.9-0.57-.57Z" fill="#676767"></path><path d="M20.394,12.531l11.9,11.9,0.57-.57-11.9-11.9A0.807,0.807,0,1,0,19.823,13.1L31.721,25l0.571-.571Z" fill="#676767"></path><rect x="31.888" y="24.597" width="0.807" height="0.807" transform="translate(-8.22 30.156) rotate(-45)" fill="#676767"></rect><rect x="32.459" y="25.167" width="0.807" height="0.807" transform="translate(-8.456 30.73) rotate(-45.005)" fill="#676767"></rect><rect x="33.029" y="24.597" width="0.807" height="0.807" transform="translate(-7.886 30.959) rotate(-44.995)" fill="#676767"></rect><rect x="32.459" y="24.026" width="0.807" height="0.807" transform="translate(-7.649 30.392) rotate(-45)" fill="#676767"></rect></svg>
         <svg ${favorite ? '' : 'hidden'} class="icon-star-filled" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"></path></svg>
@@ -347,14 +350,11 @@ const addContactToList = (id, name, image, favorite) => {
     // fetch new list item from dom
     const newListItem = document.querySelector(`${pcard.list.itemsQuery}[data-id="${id}"]`);
 
-    // add actions to new list item
+    // highlight new list item
     highlight(newListItem);
-    newListItem.addEventListener('click', () => {
-        getContact();
-        toggleView();
-    }, false);
 
-    striped();
+    // initialise list item listener
+    toggleListener(newListItem);
 };
 
 /**
@@ -362,11 +362,13 @@ const addContactToList = (id, name, image, favorite) => {
  **/
 const updateContactList = (type, id, name, image, favorite) => {
     const updatedContact = document.querySelector(`${pcard.list.itemsQuery}[data-id="${id}"]`);
+    const timestamp = new Date().getTime();
 
     if (type === 'edit' && updatedContact) {
+        // update existing contact to contact list
         updatedContact.querySelector('h2').innerText = name;
-        updatedContact.querySelector('img').setAttribute('src', `avatars/${image}.jpg?${new Date().getTime()}`);
-        updatedContact.querySelector('img').setAttribute('srcset', `avatars/${image}.jpg?${new Date().getTime()} 2x`);
+        updatedContact.querySelector('img').setAttribute('src', `avatars/${image}?${timestamp}`);
+        updatedContact.querySelector('img').setAttribute('srcset', `avatars/${image}?${timestamp} 2x`);
         if (favorite) {
             updatedContact.querySelector(pcard.list.item.iconFavQuery).removeAttribute('hidden');
         } else {
@@ -374,10 +376,13 @@ const updateContactList = (type, id, name, image, favorite) => {
         }
         highlight(updatedContact);
     } else if (type === 'edit') {
+        // todo: check when this is triggered, naming is off
         addContactToList(id, name, image, favorite);
     } else if (type === 'add') {
+        // todo: check when this is triggered, naming is off
         addContactToList(id, name, image, favorite);
     } else if (type === 'delete') {
+        // delete from contact list
         highlight(updatedContact);
         window.setTimeout(() => {
             updatedContact.remove();
@@ -385,9 +390,8 @@ const updateContactList = (type, id, name, image, favorite) => {
         }, 750);
     }
 
-    /** Trigger empty text logic **/
+    /** Update list state **/
     const listItems = document.querySelectorAll('#contact-list li');
-    toggleContact();
     striped();
     emptyText(listItems);
 };
@@ -401,20 +405,24 @@ const updateContactList = (type, id, name, image, favorite) => {
 /**
  * Toggle between contacts
  **/
-const toggleContact = () => {
+const toggleBetweenContacts = () => {
     const listItems = document.querySelectorAll(pcard.list.itemsQuery);
     listItems.forEach((listItem) => {
-        listItem.addEventListener('click', () => {
-            /** Switch to read mode **/
-            readMode();
-
-            /** toggle view (for small screens) */
-            toggleView();
-
-            /** Get contact **/
-            getContact(listItem);
-        }, false);
+        toggleListener(listItem);
     });
+};
+
+const toggleListener = (listItem) => {
+    listItem.addEventListener('click', () => {
+        /** Switch to read mode **/
+        readMode();
+
+        /** toggle view (for small screens) */
+        toggleView();
+
+        /** Get contact **/
+        getContact(listItem);
+    }, false);
 };
 
 /**

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Theme functions
      **/
     toggleListView();
-    toggleContact();
+    toggleBetweenContacts();
     toggleFavorite();
     toggleToContactList();
     filterContactList();

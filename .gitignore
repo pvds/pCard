@@ -27,3 +27,6 @@ node_modules/
 app/dist/
 app/env.php
 app/data/contacts.json
+app/avatars/*
+!app/avatars/avatar-placeholder.jpg
+!app/avatars/avatar-placeholder@2x.jpg

@@ -132,7 +132,7 @@ const showContact = (contactData, contactId) => {
 
     // update mail actions
     if (contactData.mail.private !== '') {
-        formActionMail.href = `tel:${contactData.mail.private}`;
+        formActionMail.href = `mail:${contactData.mail.private}`;
         formActionMail.removeAttribute('disabled');
     } else {
         formActionMail.removeAttribute('href');
@@ -243,6 +243,10 @@ const deleteContact = () => {
 
     /** update state */
     updateContactList('delete', id);
+
+    /** clear form in order to add new contact */
+    // todo: separate clear form logic into separate function from addContact()
+    addContact();
 };
 
 /**

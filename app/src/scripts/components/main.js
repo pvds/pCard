@@ -3,9 +3,8 @@
  * todo: set mail and call links to disabled by default, enable when email available
  * todo: resize images in PHP and save @2x version [128x128px] and normal version [64x64px]
  * todo: use FormData(form) for POST > change PHP logic in ajax/*.php files
- * todo: add support for multiple image extensions >
- *      todo: upload image on save
- *      todo: save image with extension to contacts.json
+ * todo: on document load if there are no contacts > initialise write mode
+ * todo: switch to all contacts view when adding non favorite contact while in favorite filter
  *
  * Extra functions
  * todo: export_contact
@@ -493,7 +492,7 @@ const toggleFavoriteList = (showFavorites, favButton, favButtonAlt, allButton, a
  **/
 const toggleListView = () => {
     const allTrigger = document.getElementById(pcard.triggers.list.allId);
-    const allTriggerAlt = document.getElementById(pcard.triggers.header.favId);
+    const allTriggerAlt = document.getElementById(pcard.triggers.header.allId);
     const favTrigger = document.getElementById(pcard.triggers.list.favId);
     const favTriggerAlt = document.getElementById(pcard.triggers.header.favId);
 

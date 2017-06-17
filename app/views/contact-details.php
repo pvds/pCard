@@ -6,7 +6,7 @@
                     echo $contact['image-html'];
                 } else { ?>
                     <!-- By Google, Chromium project [BSD (http://opensource.org/licenses/bsd-license.php)], via Wikimedia Commons -->
-                    <img id="contact-details-image" src='dist/images/avatar-placeholder.jpg' width='64' height='64' srcset='dist/images/avatar-placeholder.jpg 2x'/>
+                    <img id="contact-details-image" src='avatars/avatar-placeholder.jpg' width='64' height='64' srcset='avatars/avatar-placeholder.jpg 2x'/>
                     <span id='edit-image-field' class='is-hidden'><span id='edit-image-field-action'>add</span><br/>photo</span>
                 <?php } ?>
             </label>

@@ -3,7 +3,6 @@
  * todo: set mail and call links to disabled by default, enable when email available
  * todo: resize images in PHP and save @2x version [128x128px] and normal version [64x64px]
  * todo: use new FormData(form) for POST > change PHP logic in ajax/*.php files
- * todo: save images to app/avatars (app/dist/images is cleared on build)
  * todo: add support for multiple image extensions >
  *      todo: upload image on save
  *      todo: save image with extension to contacts.json
@@ -52,8 +51,8 @@ const addContact = () => {
     });
 
     // clear custom form elements
-    pcard.form.fields.imageTag.setAttribute('src', `dist/images/${image}.jpg`);
-    pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${image}@2x.jpg 2x`);
+    pcard.form.fields.imageTag.setAttribute('src', `avatars/${image}.jpg`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${image}@2x.jpg 2x`);
     pcard.form.fields.imageEdit.innerText = imageAction;
     pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
     pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
@@ -92,8 +91,8 @@ const showContact = (contactData, contactId) => {
     /** Update contact data **/
     // prepare custom form elements
     detailsWrap.setAttribute('data-id', contactId);
-    pcard.form.fields.imageTag.setAttribute('src', `dist/images/${contactDataProcessed.image}.jpg`);
-    pcard.form.fields.imageTag.setAttribute('srcset', `dist/images/${contactDataProcessed.image}.jpg 2x`);
+    pcard.form.fields.imageTag.setAttribute('src', `avatars/${contactDataProcessed.image}.jpg?${new Date().getTime()}`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${contactDataProcessed.image}.jpg?${new Date().getTime()} 2x`);
     pcard.form.fields.imageEdit.text = contactDataProcessed.imageAction;
     if (contactData.favorite) {
         pcard.form.fields.favoriteIconFalse.setAttribute('hidden', '');
@@ -329,7 +328,7 @@ const addContactToList = (id, name, image, favorite) => {
     const listFragment = document.createDocumentFragment();
     const listItem = document.createElement('li');
     const listItemMarkup = `
-        <img src="dist/images/${image}.jpg" width="64" height="64" srcset="dist/images/${image}.jpg 2x">
+        <img src="avatars/${image}.jpg?${new Date().getTime()}" width="64" height="64" srcset="avatars/${image}.jpg?${new Date().getTime()} 2x">
         <h2 class="name">${name}</h2>
         <svg class="icon-arrow-right" data-name="Arrow right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M20.394,37.469l11.9-11.9L31.721,25l-11.9,11.9a0.807,0.807,0,1,0,1.141,1.141l11.9-11.9-0.57-.57Z" fill="#676767"></path><path d="M20.394,12.531l11.9,11.9,0.57-.57-11.9-11.9A0.807,0.807,0,1,0,19.823,13.1L31.721,25l0.571-.571Z" fill="#676767"></path><rect x="31.888" y="24.597" width="0.807" height="0.807" transform="translate(-8.22 30.156) rotate(-45)" fill="#676767"></rect><rect x="32.459" y="25.167" width="0.807" height="0.807" transform="translate(-8.456 30.73) rotate(-45.005)" fill="#676767"></rect><rect x="33.029" y="24.597" width="0.807" height="0.807" transform="translate(-7.886 30.959) rotate(-44.995)" fill="#676767"></rect><rect x="32.459" y="24.026" width="0.807" height="0.807" transform="translate(-7.649 30.392) rotate(-45)" fill="#676767"></rect></svg>
         <svg ${favorite ? '' : 'hidden'} class="icon-star-filled" data-name="Star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>icons</title><path d="M39.986,47.6L25.141,39.8,10.3,47.6l2.835-16.53L1.122,19.366l16.6-2.412L25.141,1.915l7.423,15.039,16.6,2.412L37.151,31.073Z" fill="#676767"></path></svg>
@@ -366,8 +365,8 @@ const updateContactList = (type, id, name, image, favorite) => {
 
     if (type === 'edit' && updatedContact) {
         updatedContact.querySelector('h2').innerText = name;
-        updatedContact.querySelector('img').setAttribute('src', `dist/images/${image}.jpg?${new Date().getTime()}`);
-        updatedContact.querySelector('img').setAttribute('srcset', `dist/images/${image}.jpg?${new Date().getTime()} 2x`);
+        updatedContact.querySelector('img').setAttribute('src', `avatars/${image}.jpg?${new Date().getTime()}`);
+        updatedContact.querySelector('img').setAttribute('srcset', `avatars/${image}.jpg?${new Date().getTime()} 2x`);
         if (favorite) {
             updatedContact.querySelector(pcard.list.item.iconFavQuery).removeAttribute('hidden');
         } else {

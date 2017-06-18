@@ -1,3 +1,5 @@
+// todo: check why 'add contact' trigger does not animate to contact view
+
 //-- Mixins --//
 @import "mixins/clearfix";
 @import "mixins/mediaquery";
@@ -27,7 +29,7 @@
 //-- Theme
 @import "components/theme/form-section";
 @import "components/theme/list-item";
-@import "components/theme/menu";
+@import "components/theme/action-menu";
 
 //-- Templates --//
 //-- Page

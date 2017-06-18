@@ -21,8 +21,7 @@ if(file_exists($contactsFile)){
         function sort_by_name($a, $b){
             return strcasecmp($a["name"], $b["name"]);
         }
-        usort($updated_contact_list,'sort_by_name');
-
+        uasort($updated_contact_list,'sort_by_name');
         $updated_contact_list_json = json_encode($updated_contact_list, 128);
 
         $json_data = $updated_contact_list_json;

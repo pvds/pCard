@@ -261,7 +261,9 @@ const writeMode = () => {
     toggleView();
 
     // focus on name field
-    setTimeout(document.getElementById(pcard.form.fields.nameId).focus(), 10);
+    setTimeout(() => {
+        document.getElementById(pcard.form.fields.nameId).focus();
+    }, pcard.theme.animationDuration);
 };
 
 /**

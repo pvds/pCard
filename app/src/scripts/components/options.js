@@ -4,7 +4,7 @@
 const pcard = {
     vars: {},
     theme: {
-        textareaId: 'contact-note-field',
+        animationDuration: 400,
     },
     contacts: {
         file: '/data/contacts.json',

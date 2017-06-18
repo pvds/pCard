@@ -17,11 +17,14 @@ $nav-icon-medium: 32px;
         display: block;
         width: 100%;
         background: $grey-dark;
-        padding: $gutter-half * 1.5 $gutter;
+        padding: $gutter-half * 1.2 $gutter;
         text-align: center;
         color: darken($grey-light, 10);
         svg *{
             fill: darken($grey-light, 10);
+        }
+        .title{
+            margin-bottom: 3px;
         }
         &:hover{
             background: darken($grey-dark, 5);
@@ -37,6 +40,13 @@ $nav-icon-medium: 32px;
             svg *{
                 cursor: not-allowed;
                 fill: darken($grey-dark, 10);
+            }
+        }
+        &.active{
+            background: $blue;
+            color: $white;
+            svg *{
+                fill: $white;
             }
         }
     }

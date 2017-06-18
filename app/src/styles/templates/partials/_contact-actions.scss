@@ -2,4 +2,20 @@
     button, .button{
         flex: 1;
     }
+
+    #contact-actions-delete{
+        &:active,&:focus{
+            background: $red;
+        }
+    }
+    #contact-actions-favorite{
+        &:active,&:focus{
+            background: $orange;
+        }
+    }
+    #contact-actions-save{
+        &:active,&:focus{
+            background: $green;
+        }
+    }
 }

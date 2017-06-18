@@ -69,11 +69,11 @@ const highlight = (target, duration = 750) => {
  **/
 const mqClasses = (viewPortWidth) => {
     const body = document.body;
-    if (viewPortWidth < 672) {
+    if (viewPortWidth <= pcard.theme.smallViewMax) {
         body.classList.add('small-view');
         body.classList.remove('medium-view');
         body.classList.remove('large-view');
-    } else if (viewPortWidth >= 672 && viewPortWidth < 982) {
+    } else if (viewPortWidth > pcard.theme.smallViewMax && viewPortWidth < pcard.theme.mediumViewMax) {
         body.classList.add('medium-view');
         body.classList.remove('small-view');
         body.classList.remove('large-view');

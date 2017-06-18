@@ -5,6 +5,8 @@ const pcard = {
     vars: {},
     theme: {
         animationDuration: 400,
+        smallViewMax: 671,
+        mediumViewMax: 981,
     },
     contacts: {
         file: '/data/contacts.json',

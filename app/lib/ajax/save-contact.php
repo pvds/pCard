@@ -18,7 +18,11 @@ if(file_exists($contactsFile)){
         $json_data = $updated_contact_json;
     } else{
         $updated_contact_list = array_replace_recursive($current_contact_list, $updated_contact);
-        asort($updated_contact_list);
+        function sort_by_name($a, $b){
+            return strcasecmp($a["name"], $b["name"]);
+        }
+        usort($updated_contact_list,'sort_by_name');
+
         $updated_contact_list_json = json_encode($updated_contact_list, 128);
 
         $json_data = $updated_contact_list_json;

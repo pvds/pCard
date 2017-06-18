@@ -4,6 +4,7 @@
  * todo: use FormData(form) for POST > change PHP logic in ajax/*.php files
  * todo: on document load if there are no contacts > initialise write mode
  * todo: switch to all contacts view when adding non favorite contact while in favorite filter
+ * todo: update favorite filter to listen to removed/added favorite status on list item
  *
  * Extra functions
  * todo: export_contact
@@ -487,8 +488,7 @@ const toggleToContactList = () => {
  * todo: simplify logic
  **/
 const toggleFavoriteList = (showFavorites, favButton, favButtonAlt, allButton, allButtonAlt) => {
-    const filterList = document.getElementById(favButton.dataset.filter);
-    const filterItems = filterList.querySelectorAll('li');
+    const filterItems = document.querySelectorAll(pcard.list.itemsQuery);
 
     /** set active states */
     favButton.classList.toggle('active');

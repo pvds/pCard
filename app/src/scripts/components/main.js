@@ -403,8 +403,10 @@ const updateContactList = (type, id, name, image, favorite) => {
         updatedContact.querySelector('img').setAttribute('srcset', `avatars/${image}?${timestamp} 2x`);
         if (favorite) {
             updatedContact.querySelector(pcard.list.item.iconFavQuery).removeAttribute('hidden');
+            updatedContact.setAttribute('data-fav', favorite);
         } else {
             updatedContact.querySelector(pcard.list.item.iconFavQuery).setAttribute('hidden', '');
+            updatedContact.removeAttribute('data-fav');
         }
         highlight(updatedContact);
     } else if (type === 'edit') {

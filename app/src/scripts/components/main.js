@@ -14,7 +14,7 @@
 
 /**
  *
- * Contact functions
+ * Main Contact functions
  *
  * */
 
@@ -23,54 +23,13 @@
  **/
 const addContact = () => {
     /** Get and set highest contact id **/
-    const listItems = document.querySelectorAll(pcard.list.itemsQuery);
-    const formWrapper = document.getElementById(pcard.form.wrapperId);
-    const form = document.getElementById(pcard.form.elementId);
-
-    let highestId = 0;
-    if (listItems.length > 0) {
-        const listItemIds = new Map();
-        listItems.forEach((listItem) => {
-            const id = listItem.getAttribute('data-id');
-            listItemIds.set(id, id);
-        });
-        highestId = Math.max(...listItemIds.values());
-    }
-
-    const newListItemId = highestId + 1;
-    formWrapper.setAttribute('data-id', newListItemId);
+    setNewContactId();
 
     /** Clear current form **/
-    const placeholderImage = 'avatar-placeholder.jpg';
-    const imageAction = 'add';
-
-    // clear field values
-    pcard.form.fields.select.forEach((field) => {
-        field.value = '';
-    });
-
-    // clear custom form elements
-    pcard.form.fields.imageTag.setAttribute('src', `avatars/${placeholderImage}`);
-    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${placeholderImage} 2x`);
-    pcard.form.fields.imageEdit.innerText = imageAction;
-    pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
-    pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
-    pcard.form.fields.favorite.checked = false;
+    clearContactForm();
 
     /** Prepare write mode **/
-    const container = document.querySelector('main');
-
-    // initiate write mode
-    if (form.classList.contains('read-mode')) {
-        toggleContactTriggers(pcard.triggers.contact.select);
-        toggleReadWrite(true);
-    }
-
-    // switch to contact view
-    container.classList.toggle('view-change');
-
-    // focus on name field
-    setTimeout(document.getElementById(pcard.form.fields.nameId).focus(), 10);
+    writeMode();
 };
 
 /**
@@ -174,18 +133,17 @@ const saveContact = (triggers, contactExists = true) => {
     const id = formWrap.getAttribute('data-id');
 
     /** get field values */
-    // todo use pcard option ids
-    const fileImageAttribute = document.getElementById('contact-details-image-field').getAttribute('data-image');
-    const name = document.getElementById('contact-details-name-field').value;
-    const phoneWork = document.getElementById('contact-details-phone-work-field').value;
-    const phonePrivate = document.getElementById('contact-details-phone-mobile-field').value;
-    const mailWork = document.getElementById('contact-details-mail-work-field').value;
-    const mailPrivate = document.getElementById('contact-details-mail-private-field').value;
-    const street = document.getElementById('contact-details-address-field-line-1').value;
-    const city = document.getElementById('contact-details-address-field-line-2').value;
-    const country = document.getElementById('contact-details-address-field-line-3').value;
-    const note = document.getElementById('contact-details-note-field').value;
-    const favorite = document.getElementById('contact-details-favorite-field').checked;
+    const fileImageAttribute = document.getElementById(pcard.form.fields.imageId).getAttribute('data-image');
+    const name = document.getElementById(pcard.form.fields.nameId).value;
+    const favorite = document.getElementById(pcard.form.fields.favoriteId).checked;
+    const phoneWork = document.getElementById(pcard.form.fields.phoneWorkId).value;
+    const phonePrivate = document.getElementById(pcard.form.fields.phonePrivateId).value;
+    const mailWork = document.getElementById(pcard.form.fields.mailWorkId).value;
+    const mailPrivate = document.getElementById(pcard.form.fields.mailPrivateId).value;
+    const street = document.getElementById(pcard.form.fields.addressStreetId).value;
+    const city = document.getElementById(pcard.form.fields.addressCityId).value;
+    const country = document.getElementById(pcard.form.fields.addressCountryId).value;
+    const note = document.getElementById(pcard.form.fields.noteId).value;
 
     /** get updated image, otherwise use to saved image, otherwise use placeholder */
     const imageName = getImageName(pcard.form.fields.image) || fileImageAttribute;
@@ -244,13 +202,13 @@ const deleteContact = () => {
     updateContactList('delete', id);
 
     /** clear form in order to add new contact */
-    // todo: separate clear form logic into separate function from addContact()
-    addContact();
+    clearContactForm();
 };
+
 
 /**
  *
- * Contact toggle functions
+ * Contact helper functions
  *
  * */
 
@@ -318,9 +276,70 @@ const readMode = () => {
     }
 };
 
+const writeMode = () => {
+    const form = document.getElementById(pcard.form.elementId);
+
+    // initiate write mode
+    if (form.classList.contains('read-mode')) {
+        toggleContactTriggers(pcard.triggers.contact.select);
+        toggleReadWrite(true);
+    }
+
+    // switch to contact view
+    toggleView();
+
+    // focus on name field
+    setTimeout(document.getElementById(pcard.form.fields.nameId).focus(), 10);
+};
+
+/**
+ * Clear contact form
+ **/
+const clearContactForm = () => {
+    /** Clear current form **/
+    const placeholderImage = 'avatar-placeholder.jpg';
+    const imageAction = 'add';
+
+    // clear field values
+    pcard.form.fields.select.forEach((field) => {
+        field.value = '';
+    });
+
+    // clear custom form elements
+    pcard.form.fields.image.removeAttribute('data-image');
+    pcard.form.fields.imageTag.setAttribute('src', `avatars/${placeholderImage}`);
+    pcard.form.fields.imageTag.setAttribute('srcset', `avatars/${placeholderImage} 2x`);
+    pcard.form.fields.imageEdit.innerText = imageAction;
+    pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
+    pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
+    pcard.form.fields.favorite.checked = false;
+};
+
+/**
+ * Set new contact id
+ **/
+const setNewContactId = () => {
+    const listItems = document.querySelectorAll(pcard.list.itemsQuery);
+    const formWrapper = document.getElementById(pcard.form.wrapperId);
+
+    let highestId = 0;
+    if (listItems.length > 0) {
+        const listItemIds = new Map();
+        listItems.forEach((listItem) => {
+            const id = listItem.getAttribute('data-id');
+            listItemIds.set(id, id);
+        });
+        highestId = Math.max(...listItemIds.values());
+    }
+
+    const newListItemId = highestId + 1;
+    formWrapper.setAttribute('data-id', newListItemId);
+};
+
+
 /**
  *
- * List functions
+ * Main list functions
  *
  * */
 
@@ -399,9 +418,10 @@ const updateContactList = (type, id, name, image, favorite) => {
     emptyText(listItems);
 };
 
+
 /**
  *
- * List toggle functions
+ * List helper functions
  *
  * */
 

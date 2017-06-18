@@ -1,4 +1,4 @@
-<div id="contact-actions" class="menu has-stacked-icons">
+<div id="contact-actions" class="action-menu has-stacked-icons">
     <ul>
         <li>
             <a href="tel:<?=$contact['phone']['action']?>" <?=$contact['phone']['status']?> id="contact-actions-call" class="button">

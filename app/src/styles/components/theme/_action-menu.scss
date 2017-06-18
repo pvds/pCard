@@ -1,8 +1,11 @@
-.menu{
+$nav-icon-small: 24px;
+$nav-icon-medium: 32px;
+
+.action-menu{
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: $menu-height;
+    height: $top-menu-height;
     ul{
         display: flex;
         width: 100%;

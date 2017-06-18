@@ -1,8 +1,6 @@
-#contact{
-    $icon-arrow-right-size: 26px;
-    $icon-star-filled-size: 18px;
-    $icon-gutter: $gutter-fourth;
+$list-detail-height: 64px;
 
+#contact{
     padding: $gutter;
     header{
         @include clearfix;

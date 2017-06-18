@@ -1,6 +1,7 @@
+$label-width: 74px;
+$form-element-height: 38px;
+
 .form-section{
-    $label-width: 74px;
-    $form-element-height: 38px;
     padding: $gutter 0;
     border-bottom: 1px solid darken($grey-light, 10);
     @include clearfix;

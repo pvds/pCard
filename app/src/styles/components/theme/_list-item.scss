@@ -1,8 +1,9 @@
-.list-item {
-    $icon-arrow-right-size: 26px;
-    $icon-star-filled-size: 18px;
-    $icon-gutter: $gutter-fourth;
+$list-item-height: 48px;
+$icon-arrow-right-size: 26px;
+$icon-star-filled-size: 18px;
+$icon-gutter: $gutter-fourth;
 
+.list-item {
     @include clearfix;
     position: relative;
     padding: $gutter-half;

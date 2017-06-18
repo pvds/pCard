@@ -33,15 +33,19 @@ $orange: #db8c2d;
 $body-color: $white;
 $text-color: $grey-dark;
 
-// Layout
+/**
+ * Layout
+ */
+
+// Vertical layout
 $header-width: 150px;
 $list-width: 300px;
-$list-item-height: 48px;
-$list-detail-height: 64px;
-$menu-height: 74px;
-$nav-icon-small: 24px;
-$nav-icon-medium: 32px;
 
+// Horizontal layout
+$top-menu-height: 61px;
+$bottom-menu-height: 74px;
+
+// Spacing
 $spacing: 1em;
 $spacing-half: $spacing / 2;
 $spacing-fourth: $spacing / 4;
@@ -54,8 +58,16 @@ $gutter-fourth: $gutter / 4;
 $gutter-double: $gutter * 2;
 
 /**
+ * Icons
+ */
+$icon-arrow-right-size: 26px;
+$icon-star-filled-size: 18px;
+$icon-gutter: $gutter-fourth;
+
+/**
  * Properties
  */
+
 // Border radius
 $border-radius: 4px;
 $border-radius-half: $border-radius / 2;

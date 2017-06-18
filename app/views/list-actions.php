@@ -1,4 +1,4 @@
-<div id="list-actions" class="menu has-stacked-icons">
+<div id="list-actions" class="action-menu has-stacked-icons">
     <ul>
         <li class="hidden-lg">
             <button id="list-actions-all" class="active">

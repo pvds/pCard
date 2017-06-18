@@ -65,38 +65,18 @@ const showImage = (input) => {
 };
 
 /**
- * AJAX post to save image with PHP
- *
- * todo: use postAJAX function
- **/
-const postImage = (form, file, name) => {
-    const target = '/lib/ajax/save-image.php';
-    const formData = new FormData(form);
-    const request = new XMLHttpRequest();
-
-    formData.append('image-name', name);
-
-    request.open('POST', target, true);
-    request.onload = () => {
-        // todo: decide whether to use uploaded image or keep dataURL as preview
-        console.dir(request);
-    };
-    request.onerror = () => {
-        // There was a connection error of some sort
-    };
-    request.send(formData);
-};
-
-/**
  * Process uploaded image files
  **/
 const processImage = (input) => {
-    const form = document.forms.namedItem('contact-form');
-    const imageFile = input.files[0];
     const imageName = getImageName(input);
+    const saveImageScript = '/lib/ajax/save-image.php';
+    const form = document.forms.namedItem('contact-form');
+    const formData = new FormData(form);
+
+    formData.append('image-name', imageName);
 
     showImage(input);
-    postImage(form, imageFile, imageName);
+    ajaxPost(saveImageScript, formData);
 };
 
 const getImageName = (input) => {

@@ -104,11 +104,11 @@ const editContact = (triggers) => {
  * Save contact
  *
  * TODO: use AJAX POST to post the form directly to PHP (use ajaxPost promise helper)
- * const form = formWrap.querySelector('#contact-details');
+ * const form = formWrap.querySelector('#contact');
  * const data = new FormData(form);
  **/
 const saveContact = (triggers, contactExists = true) => {
-    const formWrap = document.getElementById('contact-details-wrap');
+    const formWrap = document.getElementById('contact-wrap');
     const id = formWrap.getAttribute('data-id');
 
     /** get field values */
@@ -167,7 +167,7 @@ const saveContact = (triggers, contactExists = true) => {
  * Delete contact
  **/
 const deleteContact = () => {
-    const formWrap = document.getElementById('contact-details-wrap');
+    const formWrap = document.getElementById('contact-wrap');
 
     /** get current contact id */
     const id = formWrap.getAttribute('data-id');
@@ -366,7 +366,7 @@ const setNewContactId = () => {
  **/
 const addContactToList = (id, name, image, favorite) => {
     /** Prepare new list item **/
-    const listWrapper = document.querySelector('#contact-list ul');
+    const listWrapper = document.querySelector('#list ul');
     const listFragment = document.createDocumentFragment();
     const listItem = document.createElement('li');
     const timestamp = new Date().getTime();
@@ -380,6 +380,7 @@ const addContactToList = (id, name, image, favorite) => {
     // add properties to list item
     listItem.setAttribute('data-id', id);
     listItem.setAttribute('data-fav', favorite);
+    listItem.setAttribute('class', 'list-item');
     listItem.innerHTML = listItemMarkup;
 
     /** Use new list item **/
@@ -431,7 +432,7 @@ const updateContactList = (type, id, name, image, favorite) => {
     }
 
     /** Update list state **/
-    const listItems = document.querySelectorAll('#contact-list li');
+    const listItems = document.querySelectorAll('#list li');
     striped();
     emptyText(listItems);
 };

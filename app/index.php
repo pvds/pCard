@@ -44,22 +44,23 @@ require "lib/config/contacts.php";
 ?>
 <body class="<?=ENV?>">
 
-<!-- Header  -->
-<?php include "views/header.php" ?>
+<!-- list menu -->
+<?php include "views/list-menu.php" ?>
 <main>
     <!-- contact list -->
-    <div id="contact-list-wrap" class="view list-view">
+    <div id="list-wrap" class="view list-view">
         <?php
-        include "views/search.php";
-        include "views/contact-list.php";
-        include "views/contact-list-actions.php";
+        include "views/list-search.php";
+        include "views/list.php";
+        include "views/list-actions.php";
         ?>
     </div>
-    <section id="contact-details-wrap" class="view details-view" data-id="<?=$contact['contact_id'] ? $contact['contact_id'] : 1 ?>">
+    <!-- contact -->
+    <section id="contact-wrap" class="view contact-view" data-id="<?=$contact['contact_id'] ? $contact['contact_id'] : 1 ?>">
         <?php
-        include "views/contact-details-menu.php";
-        include "views/contact-details.php";
-        include "views/contact-details-actions.php";
+        include "views/contact-menu.php";
+        include "views/contact.php";
+        include "views/contact-actions.php";
         ?>
     </section>
 </main>

@@ -1,0 +1,59 @@
+.list-item {
+    $icon-arrow-right-size: 26px;
+    $icon-star-filled-size: 18px;
+    $icon-gutter: $gutter-fourth;
+
+    @include clearfix;
+    position: relative;
+    padding: $gutter-half;
+    line-height: $list-item-height;
+    cursor: pointer;
+    transition: none;
+    img {
+        @extend .is-round;
+        float: left;
+        width: $list-item-height;
+        height: $list-item-height;
+        margin-right: $gutter-half;
+    }
+    h2 {
+        margin-right: $gutter-double;
+        color: $grey-dark;
+        font-size: 16px;
+        font-weight: $font-weight-base;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    svg{
+        position: absolute;
+        &.icon-star-filled{
+            width: $icon-star-filled-size;
+            right: $icon-gutter + $icon-arrow-right-size;
+            top: (($list-item-height + $gutter) / 2) - ($icon-star-filled-size / 2);
+        }
+        &.icon-arrow-right{
+            width: $icon-arrow-right-size;
+            right: $icon-gutter;
+            top: (($list-item-height + $gutter) / 2) - ($icon-arrow-right-size / 2);
+        }
+    }
+
+    &.is-odd{
+        background: $grey-light;
+    }
+    &:hover,&.is-highlight {
+        transition: $transition-short;
+        background: lighten(desaturate($blue, 10), 60);
+        background: $blue-light;
+        color: $white;
+        h2{
+            transition: $transition-short;
+            color: $white;
+        }
+        svg *{
+            transition: $transition-short;
+            fill: $white;
+        }
+    }
+}

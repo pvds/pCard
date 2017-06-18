@@ -1,0 +1,56 @@
+#list-menu{
+    button{
+        width: 100%;
+        padding: $gutter 0;
+        &:hover{
+            color: $orange;
+            svg{
+                path{
+                    fill: $orange;
+                }
+            }
+        }
+        &.active{
+            color: $blue-light;
+            svg{
+                path{
+                    fill: $blue-light;
+                }
+            }
+            &:hover{
+                color: $blue-light;
+                svg{
+                    path{
+                        fill: $blue-light;
+                    }
+                }
+            }
+        }
+    }
+    svg{
+        width: $nav-icon-medium;
+        height: $nav-icon-medium;
+        path{
+            fill: $grey-dark;
+        }
+    }
+    .title{
+        display: inline-block;
+        width: 100%;
+        margin-top: 5px;
+        font-size: 13px;
+    }
+
+    @include media(sm-max){
+        background: $grey-light;
+        color: $grey-dark;
+        border-bottom: 1px solid $grey-middle;
+    }
+
+    @include media(lg){
+        float: left;
+        width: $header-width;
+        height: 100vh;
+        border-right: 1px solid lighten($grey-middle, 15);
+    }
+}

@@ -1,0 +1,12 @@
+#contact-menu{
+    @include media(sm-max) {
+        button {
+            width: 100%;
+            padding: $gutter;
+            line-height: 20px;
+            background: $grey-light;
+            color: $grey-dark;
+            border-bottom: 1px solid lighten($grey-middle, 20);
+        }
+    }
+}

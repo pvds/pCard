@@ -4,7 +4,7 @@
  * todo: use pcard option variables
  **/
 const striped = () => {
-    const filterList = document.querySelector('#contact-list ul');
+    const filterList = document.querySelector('#list ul');
     const listWrapper = document.getElementById(pcard.list.elementId);
     const allItems = filterList.querySelectorAll('li');
     const visibleItems = filterList.querySelectorAll('li:not(.is-hidden):not(.not-fav)');

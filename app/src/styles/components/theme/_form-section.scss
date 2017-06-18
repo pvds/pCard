@@ -1,0 +1,28 @@
+.form-section{
+    $label-width: 74px;
+    $form-element-height: 38px;
+    padding: $gutter 0;
+    border-bottom: 1px solid darken($grey-light, 10);
+    @include clearfix;
+    &:last-child{
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border: none;
+    }
+    .label-wrapper{
+        float: left;
+        width: $label-width;
+    }
+    .element-wrapper{
+        margin-left: $label-width;
+    }
+    label{
+        line-height: $form-element-height;
+    }
+    input {
+        font-size: 20px;
+    }
+    textarea{
+        margin-top: 5px;
+    }
+}

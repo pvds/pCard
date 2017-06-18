@@ -1,0 +1,95 @@
+#contact{
+    $icon-arrow-right-size: 26px;
+    $icon-star-filled-size: 18px;
+    $icon-gutter: $gutter-fourth;
+
+    padding: $gutter;
+    header{
+        @include clearfix;
+        position: relative;
+        line-height: $list-detail-height;
+    }
+
+    // custom aligned form sections
+    .has-image{
+        float: left;
+        margin-right: $gutter-half;
+        label{
+            width: $list-detail-height;
+            height: $list-detail-height;
+        }
+        img {
+            @extend .is-round;
+            width: $list-detail-height;
+            height: $list-detail-height;
+        }
+        #edit-image-field{
+            position: absolute;
+            top: $list-detail-height / 4;
+            left: 0;
+            width: $list-detail-height;
+            height: $list-detail-height;
+            line-height: $list-detail-height / 4;
+            font-size: 13px;
+            text-align: center;
+        }
+    }
+    .has-name{
+        margin-right: $gutter;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        #contact-name-field {
+            font-size: 28px;
+            font-weight: $font-weight-base;
+            height: $list-detail-height;
+        }
+    }
+    .has-favorite{
+        position: absolute;
+        height: $list-detail-height;
+        right: 0;
+        top: 0;
+        svg{
+            width: 24px;
+            top: 6px;
+            position: relative;
+            *{
+                fill: $grey-dark;
+            }
+        }
+    }
+
+    // form states
+    &.read-mode{
+        label{
+            color: darken($grey-light, 20);
+        }
+        label, svg *{
+            cursor: default;
+        }
+    }
+    &.write-mode{
+        label, svg *{
+            cursor: pointer;
+            color: $blue-light;
+        }
+        input{
+            border-bottom-color: darken($grey-light, 5);
+        }
+        textarea{
+            border-color: darken($grey-light, 5);
+            border-radius: $border-radius;
+        }
+        .has-image{
+            &:hover{
+                img{
+                    opacity: .1;
+                }
+                #edit-image-field{
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

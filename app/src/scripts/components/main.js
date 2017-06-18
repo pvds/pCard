@@ -488,19 +488,16 @@ const toggleFavoriteList = (showFavorites, favButton, favButtonAlt, allButton, a
     const filterItems = document.querySelectorAll(pcard.list.itemsQuery);
 
     /** set active states */
-    favButton.classList.toggle('active');
-    allButton.classList.toggle('active');
-
-    if (favButton.classList.contains('active')) {
+    if (showFavorites) {
+        allButton.classList.remove('active');
+        allButtonAlt.classList.remove('active');
+        favButton.classList.add('active');
         favButtonAlt.classList.add('active');
     } else {
+        favButton.classList.remove('active');
         favButtonAlt.classList.remove('active');
-    }
-
-    if (allButton.classList.contains('active')) {
+        allButton.classList.add('active');
         allButtonAlt.classList.add('active');
-    } else {
-        allButtonAlt.classList.remove('active');
     }
 
     /** show/hide non favorites favorites */

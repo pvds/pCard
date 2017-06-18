@@ -3,8 +3,6 @@
  * todo: resize images in PHP and save @2x version [128x128px] and normal version [64x64px]
  * todo: use FormData(form) for POST > change PHP logic in ajax/*.php files
  * todo: on document load if there are no contacts > initialise write mode
- * todo: switch to all contacts view when adding non favorite contact while in favorite filter
- * todo: update favorite filter to listen to removed/added favorite status on list item
  *
  * Extra functions
  * todo: export_contact

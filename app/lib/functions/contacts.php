@@ -1,20 +1,30 @@
 <?php
-// TODO: set dynamic logic to grab last viewed contact (get from settings.json)
-function getContactData($single_contact = false, $contact_id = 1){
-    $jsondata = file_exists(CONTACT_FILE) ? file_get_contents(CONTACT_FILE) : false;
-    if($jsondata){
-        $data = json_decode($jsondata, true);
+function getContactData($single_contact = false, $contact_id = false){
+    $contact_data_json = file_exists(CONTACT_FILE) ? file_get_contents(CONTACT_FILE) : false;
+    if($contact_data_json){
+        $data = json_decode($contact_data_json, true);
         if($single_contact){
             if(isset($data[$contact_id])){
                 $contact_data = $data[$contact_id];
                 $contact_data['contact_id'] = $contact_id;
             } else{
-                $contact_data = false;
+                $contact_data = array_values($data)[0];
             }
         } else{
             $contact_data = $data;
         }
         return $contact_data;
+    }
+
+
+    return false;
+}
+
+function getSettings(){
+    $settings_json = file_exists(SETTINGS_FILE) ? file_get_contents(SETTINGS_FILE) : false;
+    if($settings_json){
+        $settings = json_decode($settings_json, true);
+        return $settings;
     }
 
     return false;
@@ -51,8 +61,8 @@ function showContactList(){
     }
 }
 
-function getContactDetails(){
-    $contact = getContactData(true);
+function getContactDetails($contact_id){
+    $contact = getContactData(true, $contact_id);
 
     if($contact){
         $image = $contact['image'];

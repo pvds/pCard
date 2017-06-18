@@ -102,3 +102,15 @@ const toggleView = () => {
     const container = document.querySelector('main');
     container.classList.toggle('view-details');
 };
+
+/**
+ * Update setting
+ **/
+const updateSetting = (name, value) => {
+    const settings = {};
+    settings[name] = value;
+
+    const JSONformData = JSON.stringify(settings);
+    const postScript = '/lib/ajax/save-settings.php';
+    ajaxPost(postScript, JSONformData);
+};

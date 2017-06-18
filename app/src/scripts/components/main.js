@@ -73,6 +73,8 @@ const getContact = (contactTrigger) => {
     const contactId = contactTrigger.getAttribute('data-id');
     const contacts = ajaxGet(pcard.contacts.file);
 
+    updateSetting('last-contact', contactId);
+
     contacts.then((data) => {
         const jsonData = JSON.parse(data);
         const contactData = jsonData[contactId];

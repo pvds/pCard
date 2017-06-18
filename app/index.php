@@ -40,7 +40,6 @@ require "lib/vendor/kint.php";
 require "lib/functions/contacts.php";
 require "lib/config/constants.php";
 require "lib/config/main.php";
-require "lib/config/contacts.php";
 ?>
 <body class="<?=ENV?>">
 

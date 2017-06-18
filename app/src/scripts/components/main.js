@@ -75,6 +75,9 @@ const showContact = (contactData, contactId) => {
 
     /** Update current data actions **/
     updateContactDataActions(contactData.phone.private, contactData.phone.work, contactData.mail.private, contactData.mail.work);
+
+    /** Set note textarea to content height **/
+    autogrow(pcard.form.fields.note);
 };
 
 /**
@@ -454,6 +457,9 @@ const toggleBetweenContacts = () => {
     });
 };
 
+/**
+ * Listen to contacts being toggled
+ **/
 const toggleListener = (listItem) => {
     listItem.addEventListener('click', () => {
         /** Switch to read mode **/

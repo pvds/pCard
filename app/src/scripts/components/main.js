@@ -203,6 +203,9 @@ const deleteContact = () => {
 
     /** clear form in order to add new contact */
     clearContactForm();
+
+    /** Prepare write mode **/
+    writeMode();
 };
 
 

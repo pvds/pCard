@@ -1,6 +1,5 @@
 /**
  * Fix
- * todo: set mail and call links to disabled by default, enable when email available
  * todo: resize images in PHP and save @2x version [128x128px] and normal version [64x64px]
  * todo: use FormData(form) for POST > change PHP logic in ajax/*.php files
  * todo: on document load if there are no contacts > initialise write mode
@@ -62,8 +61,6 @@ const showContact = (contactData, contactId) => {
     }
 
     // prepare fields
-    // todo: set file upload value
-    // pcard.form.fields.image = contactDataProcessed.image;
     pcard.form.fields.name.value = contactData.name;
     pcard.form.fields.favorite.checked = contactData.favorite;
     pcard.form.fields.phoneWork.value = contactData.phone.work;
@@ -75,27 +72,8 @@ const showContact = (contactData, contactId) => {
     pcard.form.fields.addressCountry.value = contactData.address.country;
     pcard.form.fields.note.value = contactDataProcessed.note;
 
-    /** Update current form actions **/
-    const formActionCall = pcard.triggers.contact.call;
-    const formActionMail = pcard.triggers.contact.mail;
-
-    // update phone actions
-    if (contactData.phone.private !== '') {
-        formActionCall.href = `tel:${contactData.phone.private}`;
-        formActionCall.removeAttribute('disabled');
-    } else {
-        formActionCall.href = '';
-        formActionCall.setAttribute('disabled', '');
-    }
-
-    // update mail actions
-    if (contactData.mail.private !== '') {
-        formActionMail.href = `mail:${contactData.mail.private}`;
-        formActionMail.removeAttribute('disabled');
-    } else {
-        formActionMail.removeAttribute('href');
-        formActionMail.setAttribute('disabled', '');
-    }
+    /** Update current data actions **/
+    updateContactDataActions(contactData.phone.private, contactData.phone.work, contactData.mail.private, contactData.mail.work);
 };
 
 /**
@@ -178,6 +156,7 @@ const saveContact = (triggers, contactExists = true) => {
     ajaxPost(postScript, JSONformData);
 
     /** update state */
+    updateContactDataActions(phonePrivate, phoneWork, mailPrivate, mailWork);
     toggleContactTriggers(triggers);
     toggleReadWrite(false);
     updateContactList(postType, id, name, image, favorite);
@@ -316,6 +295,41 @@ const clearContactForm = () => {
     pcard.form.fields.favoriteIconTrue.setAttribute('hidden', '');
     pcard.form.fields.favoriteIconFalse.removeAttribute('hidden');
     pcard.form.fields.favorite.checked = false;
+
+    /** Update current data actions **/
+    const phonePrivate = '';
+    const phoneWork = '';
+    const mailPrivate = '';
+    const mailWork = '';
+    updateContactDataActions(phonePrivate, phoneWork, mailPrivate, mailWork);
+};
+
+/**
+ * Disable contact actions if no data is provided
+ **/
+const updateContactDataActions = (phonePrivate, phoneWork, mailPrivate, mailWork) => {
+    const formTriggerCall = pcard.triggers.contact.call;
+    const formTriggerMail = pcard.triggers.contact.mail;
+    const phoneNumber = phonePrivate !== '' ? phonePrivate : phoneWork;
+    const mailAddress = mailPrivate !== '' ? mailPrivate : mailWork;
+
+    // update phone actions
+    if (phoneNumber !== '') {
+        formTriggerCall.href = `tel:${phoneNumber}`;
+        formTriggerCall.removeAttribute('disabled');
+    } else {
+        formTriggerCall.href = '';
+        formTriggerCall.setAttribute('disabled', '');
+    }
+
+    // update mail actions
+    if (mailAddress !== '') {
+        formTriggerMail.href = `mail:${mailAddress}`;
+        formTriggerMail.removeAttribute('disabled');
+    } else {
+        formTriggerMail.removeAttribute('href');
+        formTriggerMail.setAttribute('disabled', '');
+    }
 };
 
 /**

@@ -65,6 +65,11 @@ function getContactDetails(){
             $contact['image-html'] = false;
         }
 
+        $contact['phone']['action'] = !empty($contact['phone']['private']) ? $contact['phone']['private'] : $contact['phone']['work'];
+        $contact['phone']['status'] = empty($contact['phone']['action']) ? 'disabled' : '';
+        $contact['mail']['action'] = !empty($contact['mail']['private']) ? $contact['mail']['private'] : $contact['mail']['work'];
+        $contact['mail']['status'] = empty($contact['mail']['action']) ? 'disabled' : '';
+
         $contact['note-formatted'] = str_replace (array('\r\n', '\r', '\n'), "\r\n", $contact['note']);
     }
 

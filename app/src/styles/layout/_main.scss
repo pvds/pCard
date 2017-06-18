@@ -1,3 +1,10 @@
+// do not transition transform when switching between medium and small media query
+.medium-view, .large-view{
+    .view, .details-view{
+        transition: none !important;
+    }
+}
+
 main {
     @include media(sm-max) {
         width: 100%;
@@ -23,11 +30,11 @@ main {
             box-sizing: border-box;
         }
 
-        &.view-change .list-view {
+        &.view-details .list-view {
             transform: translateX(-100%);
         }
 
-        &.view-change .details-view {
+        &.view-details .details-view {
             transform: translateX(0);
         }
 
@@ -69,6 +76,10 @@ main {
     }
 
     @include media(md) {
+        .view, .details-view{
+            transition: none;
+        }
+
         #contact-list-wrap {
             height: 100vh;
             float: left;

@@ -63,3 +63,23 @@ const highlight = (target, duration = 750) => {
         target.classList.remove('is-highlight');
     }, timeout);
 };
+
+/**
+ * Add media query helper classes
+ **/
+const mqClasses = (viewPortWidth) => {
+    const body = document.body;
+    if (viewPortWidth < 672) {
+        body.classList.add('small-view');
+        body.classList.remove('medium-view');
+        body.classList.remove('large-view');
+    } else if (viewPortWidth >= 672 && viewPortWidth < 982) {
+        body.classList.add('medium-view');
+        body.classList.remove('small-view');
+        body.classList.remove('large-view');
+    } else {
+        body.classList.add('large-view');
+        body.classList.remove('small-view');
+        body.classList.remove('medium-view');
+    }
+};

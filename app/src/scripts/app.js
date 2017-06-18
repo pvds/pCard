@@ -31,10 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Helper functions
      **/
+    mqClasses(pcard.vars.windowW);
     autogrow(pcard.form.fields.note);
 });
 
 window.addEventListener('resize', () => {
+    // update window width
+    pcard.vars.windowW = window.innerWidth;
+
+    mqClasses(pcard.vars.windowW);
     autogrow(pcard.form.fields.note);
 });
 

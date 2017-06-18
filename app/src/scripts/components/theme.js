@@ -100,5 +100,5 @@ const toggleView = () => {
     // todo: use extra classes for list to contact & contact to list changes
 
     const container = document.querySelector('main');
-    container.classList.toggle('view-change');
+    container.classList.toggle('view-details');
 };

@@ -1,12 +1,14 @@
-button{
-    cursor: pointer;
-    outline: none;
-    &.active{
-        color: $blue;
-        svg{
-            *{
-                fill: $blue;
-            }
-        }
+button {
+  cursor: pointer;
+  outline: none;
+
+  &.active {
+    color: $blue;
+
+    svg {
+      * {
+        fill: $blue;
+      }
     }
+  }
 }

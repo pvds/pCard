@@ -21,7 +21,8 @@
     "clean": "rimraf app/dist && mkdirp app/dist/scripts",
     "sass": "node-sass -o app/dist/styles app/src/styles",
     "postcss": "postcss -u autoprefixer -b \"last 2 versions\" -u cssnano -r app/dist/styles/*.css",
-    "lint": "eslint app/src/scripts",
+    "stylelint": "stylelint app/src/styles/**/*.scss --fix --syntax scss --config .stylelintrc > style-debug.log",
+    "eslint": "eslint app/src/scripts",
     "babel": "babel app/src/scripts --out-file app/dist/scripts/app.js --presets=es2015,babili",
     "static": "run-p static:*",
     "static:images": "imagemin app/src/images/**/* -o app/dist/images",
@@ -63,6 +64,8 @@
     "postcss-viewport-units": "^0.1.3",
     "rimraf": "^2.6.1",
     "standard": "^5.3.1",
+    "stylelint": "^7.11.1",
+    "stylelint-config-standard": "^16.0.0",
     "svgo": "^0.7.1"
   }
 }

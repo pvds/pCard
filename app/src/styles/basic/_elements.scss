@@ -11,16 +11,18 @@
  */
 
 html {
-    font-size: 62.5%; /* 1 */
-    font-family: $font-base; /* 2 */
-    line-height: $line-height-base; /* 3 */
-    -ms-text-size-adjust: 100%; /* 4 */
-    -webkit-text-size-adjust: 100%; /* 4 */
-    box-sizing: border-box; /* 4 */
+  font-size: 62.5%; /* 1 */
+  font-family: $font-base; /* 2 */
+  line-height: $line-height-base; /* 3 */
+  -ms-text-size-adjust: 100%; /* 4 */
+  -webkit-text-size-adjust: 100%; /* 4 */
+  box-sizing: border-box; /* 4 */
 }
 
-*, *:before, *:after {
-    box-sizing: inherit; /* 5 */
+*,
+*:before,
+*:after {
+  box-sizing: inherit; /* 5 */
 }
 
 /* Sections
@@ -33,14 +35,14 @@ html {
  */
 
 body {
-    margin: 0; /* 1 */
-    @include rem(font-size, $font-size-base); /* 2 */
-    @include font-smoothing(on); /* 3 */
-    font-weight: $font-weight-base;
-    letter-spacing: $letter-spacing;
-    background: $body-color;
-    color: $text-color;
-    min-width: #{$bp-sm-px - $gutter};
+  margin: 0; /* 1 */
+  @include rem(font-size, $font-size-base); /* 2 */
+  @include font-smoothing(on); /* 3 */
+  font-weight: $font-weight-base;
+  letter-spacing: $letter-spacing;
+  background: $body-color;
+  color: $text-color;
+  min-width: #{$bp-sm-px - $gutter};
 }
 
 /**
@@ -53,7 +55,7 @@ footer,
 header,
 nav,
 section {
-    display: block;
+  display: block;
 }
 
 /* Resets
@@ -77,9 +79,9 @@ figure,
 button,
 dl,
 dt,
-dd{
-    margin: 0;
-    padding: 0;
+dd {
+  margin: 0;
+  padding: 0;
 }
 
 /**
@@ -88,15 +90,17 @@ dd{
 
 main,
 li {
-    display: block;
+  display: block;
 }
 
 /**
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
 
-strong, dt, th {
-    font-weight: $font-weight-base-strong;
+strong,
+dt,
+th {
+  font-weight: $font-weight-base-strong;
 }
 
 /* Text-level semantics
@@ -110,10 +114,10 @@ strong, dt, th {
 
 a,
 button,
-svg *{
-    color: inherit; /* 1 */
-    cursor: pointer; /* 2 */
-    transition: .3s; /* 3 */
+svg * {
+  color: inherit; /* 1 */
+  cursor: pointer; /* 2 */
+  transition: .3s; /* 3 */
 }
 
 /**
@@ -124,10 +128,10 @@ svg *{
  */
 
 a {
-    text-decoration: none; /* 1 */
-    outline-width: 0; /* 2 */
-    background-color: transparent; /* 3 */
-    -webkit-text-decoration-skip: objects; /* 4 */
+  text-decoration: none; /* 1 */
+  outline-width: 0; /* 2 */
+  background-color: transparent; /* 3 */
+  -webkit-text-decoration-skip: objects; /* 4 */
 }
 
 /**
@@ -136,20 +140,20 @@ a {
  */
 
 button {
-    border: 0; /* 1 */
-    font: inherit; /* 1 */
-    -webkit-font-smoothing: inherit; /* 1 */
-    letter-spacing: inherit; /* 1 */
-    background: none; /* 1 */
-    overflow: visible; /* 2 */
+  border: 0; /* 1 */
+  font: inherit; /* 1 */
+  -webkit-font-smoothing: inherit; /* 1 */
+  letter-spacing: inherit; /* 1 */
+  background: none; /* 1 */
+  overflow: visible; /* 2 */
 }
 
 /*
  * Undoes a bummer pseudo-element Firefox adds inside buttons that causes them to display larger than expected
  */
 ::-moz-focus-inner {
-    padding: 0;
-    border: 0;
+  padding: 0;
+  border: 0;
 }
 
 /**
@@ -159,24 +163,24 @@ button {
 
 sub,
 sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
 }
 
 sub {
-    bottom: -0.25em;
+  bottom: -0.25em;
 }
 
 sup {
-    top: -0.5em;
+  top: -0.5em;
 }
 
 hr {
-    border: 0;
-    border-top: .1rem solid darken($white, 5);
-    margin: $gutter 0;
+  border: 0;
+  border-top: .1rem solid darken($white, 5);
+  margin: $gutter 0;
 }
 
 /**
@@ -187,8 +191,8 @@ hr {
 code,
 kbd,
 samp {
-    font-family: $font-code; /* 1 */
-    font-size: inherit; /* 2 */
+  font-family: $font-code; /* 1 */
+  font-size: inherit; /* 2 */
 }
 
 /**
@@ -196,7 +200,7 @@ samp {
  */
 
 small {
-    font-size: 80%;
+  font-size: 80%;
 }
 
 /* Forms - To be completed - see normalize and setup own version
@@ -207,7 +211,7 @@ small {
  */
 
 textarea {
-    overflow: auto;
+  overflow: auto;
 }
 
 /* Embedded content
@@ -219,7 +223,7 @@ textarea {
 
 audio,
 video {
-    display: inline-block;
+  display: inline-block;
 }
 
 /**
@@ -227,8 +231,8 @@ video {
  */
 
 audio:not([controls]) {
-    display: none;
-    height: 0;
+  display: none;
+  height: 0;
 }
 
 /**
@@ -237,10 +241,10 @@ audio:not([controls]) {
  */
 
 img {
-    border: 0; /* 1 */
-    max-width: 100%; /* 2 */
-    height: auto; /* 2 */
-    vertical-align: middle; /* 2 */
+  border: 0; /* 1 */
+  max-width: 100%; /* 2 */
+  height: auto; /* 2 */
+  vertical-align: middle; /* 2 */
 }
 
 /**
@@ -248,17 +252,17 @@ img {
  */
 
 svg:not(:root) {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* Old elements reset user agent styling
    ========================================================================== */
-i{
-    font-style: normal;
+i {
+  font-style: normal;
 }
 
-b{
-    font-weight: $font-weight-base;
+b {
+  font-weight: $font-weight-base;
 }
 
 /* Hidden
@@ -269,5 +273,5 @@ b{
  */
 
 [hidden] {
-    display: none;
+  display: none;
 }

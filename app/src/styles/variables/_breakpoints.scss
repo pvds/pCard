@@ -23,17 +23,14 @@ $bp-from: 'min-width:';
 $bp-to: 'max-width:';
 
 $breakpoints: (
-    'sm' : ('screen and (#{$bp-from} #{$bp-sm}#{$bp-unit})'),
-    'md' : ('screen and (#{$bp-from} #{$bp-md}#{$bp-unit})'),
-    'lg' : ('screen and (#{$bp-from} #{$bp-lg}#{$bp-unit})'),
-
-    'xs-max' : ('screen and (#{$bp-to} #{$bp-xs-max}#{$bp-unit})'),
-    'sm-max' : ('screen and (#{$bp-to} #{$bp-sm-max}#{$bp-unit})'),
-    'md-max' : ('screen and (#{$bp-to} #{$bp-md-max}#{$bp-unit})'),
-
-    'sm-only' : ('screen and (#{$bp-from} #{$bp-sm}#{$bp-unit}) and (#{$bp-to} #{$bp-sm-max}#{$bp-unit})'),
-    'md-only' : ('screen and (#{$bp-from} #{$bp-md}#{$bp-unit}) and (#{$bp-to} #{$bp-md-max}#{$bp-unit})'),
-
-    'portrait' : ('screen and (orientation: portrait)'),
-    'landscape' : ('screen and (orientation: landscape)'),
+  'sm' : ('screen and (#{$bp-from} #{$bp-sm}#{$bp-unit})'),
+  'md' : ('screen and (#{$bp-from} #{$bp-md}#{$bp-unit})'),
+  'lg' : ('screen and (#{$bp-from} #{$bp-lg}#{$bp-unit})'),
+  'xs-max' : ('screen and (#{$bp-to} #{$bp-xs-max}#{$bp-unit})'),
+  'sm-max' : ('screen and (#{$bp-to} #{$bp-sm-max}#{$bp-unit})'),
+  'md-max' : ('screen and (#{$bp-to} #{$bp-md-max}#{$bp-unit})'),
+  'sm-only' : ('screen and (#{$bp-from} #{$bp-sm}#{$bp-unit}) and (#{$bp-to} #{$bp-sm-max}#{$bp-unit})'),
+  'md-only' : ('screen and (#{$bp-from} #{$bp-md}#{$bp-unit}) and (#{$bp-to} #{$bp-md-max}#{$bp-unit})'),
+  'portrait' : ('screen and (orientation: portrait)'),
+  'landscape' : ('screen and (orientation: landscape)'),
 );

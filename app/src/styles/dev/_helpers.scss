@@ -1,26 +1,29 @@
-body{
-    &.development{
-        &:after{
-            position: fixed;
-            top: 0;
-            right: 0;
-            background: $black;
-            color: $white;
-            padding: 0.5rem 1rem;
-            font-size: 1.3rem;
-            font-family: $font-base;
-            border-radius: 0 0 0 $border-radius;
-            z-index: 10000;
-            content: "Small - #{$bp-sm}em(#{$bp-sm-px}px)";
-            @include media(sm){
-                content: "SM - #{$bp-sm}em(#{$bp-sm-px}px)";
-            }
-            @include media(md){
-                content: "MD - #{$bp-md}em(#{$bp-md-px}px)";
-            }
-            @include media(lg){
-                content: "LG - #{$bp-lg}em(#{$bp-lg-px}px)";
-            }
-        }
+body {
+  &.development {
+    &:after {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background: $black;
+      color: $white;
+      padding: 0.5rem 1rem;
+      font-size: 1.3rem;
+      font-family: $font-base;
+      border-radius: 0 0 0 $border-radius;
+      z-index: 10000;
+      content: "Small - #{$bp-sm}em(#{$bp-sm-px}px)";
+
+      @include media(sm) {
+        content: "SM - #{$bp-sm}em(#{$bp-sm-px}px)";
+      }
+
+      @include media(md) {
+        content: "MD - #{$bp-md}em(#{$bp-md-px}px)";
+      }
+
+      @include media(lg) {
+        content: "LG - #{$bp-lg}em(#{$bp-lg-px}px)";
+      }
     }
+  }
 }

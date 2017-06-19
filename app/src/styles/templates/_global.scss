@@ -1,88 +1,90 @@
 // do not transition transform when switching between medium and small media query
-.medium-view, .large-view {
-    .view {
-        transition: none !important;
-    }
+.medium-view,
+.large-view {
+  .view {
+    transition: none !important;
+  }
 }
 
 // Views
-.view{
-    height: 100vh;
+.view {
+  height: 100vh;
 }
 
 // View sections
 .scrollable-section {
-    height: calc(100vh - (#{$top-menu-height} + #{$bottom-menu-height}));
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
+  height: calc(100vh - (#{$top-menu-height} + #{$bottom-menu-height}));
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
-.list-view{
-    position: relative;
+.list-view {
+  position: relative;
 }
 
 @include media(sm-max) {
-    main {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-    }
+  main {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
 
-    // Views
-    .view {
-        height: 100vh;
-        will-change: transform;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
-    }
+  // Views
+  .view {
+    height: 100vh;
+    will-change: transform;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  }
 
-    .list-view{
-        position: relative;
+  .list-view {
+    position: relative;
+  }
+
+  .contact-view {
+    transform: translateX(100%);
+    box-sizing: border-box;
+  }
+
+  // When toggled from list- to contact view
+  &.view-details {
+    .list-view {
+      transform: translateX(-100%);
     }
 
     .contact-view {
-        transform: translateX(100%);
-        box-sizing: border-box;
+      transform: translateX(0);
     }
+  }
 
-    // When toggled from list- to contact view
-    &.view-details {
-        .list-view {
-            transform: translateX(-100%);
-        }
-        .contact-view {
-            transform: translateX(0);
-        }
-    }
-
-    @include media(portrait) {}
-    @include media(landscape) {}
+  // @include media(portrait) {}
+  // @include media(landscape) {}
 }
 
 @include media(md) {
-    // Views
-    .list-view {
-        float: left;
-        width: $list-width;
-    }
+  // Views
+  .list-view {
+    float: left;
+    width: $list-width;
+  }
 
-    .contact-view {
-        margin-left: $list-width;
-        position: relative;
-        border-left: 1px solid lighten($grey-middle, 15);
-    }
+  .contact-view {
+    margin-left: $list-width;
+    position: relative;
+    border-left: 1px solid lighten($grey-middle, 15);
+  }
 
-    #contact {
-        // no top menu on md and up
-        height: calc(100vh - #{$bottom-menu-height});
-    }
+  #contact {
+    // no top menu on md and up
+    height: calc(100vh - #{$bottom-menu-height});
+  }
 }
 
 @include media(lg) {
-    main {
-        margin-left: $header-width;
-    }
+  main {
+    margin-left: $header-width;
+  }
 }

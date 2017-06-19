@@ -5,13 +5,8 @@
  **/
 const striped = () => {
     const filterList = document.querySelector('#list ul');
-    const listWrapper = document.getElementById(pcard.list.elementId);
     const allItems = filterList.querySelectorAll('li');
     const visibleItems = filterList.querySelectorAll('li:not(.is-hidden):not(.not-fav)');
-
-    // set filtered class for styling purposed
-    // todo: remove the need for this class by using striped on dom load
-    listWrapper.classList.add('is-filtered');
 
     // remove previously added classes
     allItems.forEach((item) => {

@@ -557,20 +557,15 @@ const toggleListView = () => {
  * todo: implement keyword search
  **/
 const filterContactList = () => {
-    const searchField = pcard.list.searchInput;
-    const inputValue = searchField.value;
-    const filterList = document.getElementById(searchField.dataset.filter);
-    const filterItems = filterList.querySelectorAll('li');
+    const searchValue = pcard.list.searchInput.value.toLowerCase();
+    const filterItems = document.querySelectorAll(pcard.list.itemsQuery);
 
     /** show matched list items */
     filterItems.forEach((filterItem) => {
-        const titleTag = filterItem.querySelector('h2');
-        const phrase = titleTag.innerText;
-
-        if (phrase.search(new RegExp(inputValue, 'i')) < 0) {
+        filterItem.classList.remove('is-hidden');
+        const title = filterItem.querySelector('h2').innerText.toLowerCase();
+        if (!title.includes(searchValue)) {
             filterItem.classList.add('is-hidden');
-        } else {
-            filterItem.classList.remove('is-hidden');
         }
     });
 

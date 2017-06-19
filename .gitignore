@@ -25,6 +25,7 @@ node_modules/
 
 # Build folders
 app/dist/
+app/src/scripts/vendor/
 app/env.php
 app/data/contacts.json
 app/data/settings.json

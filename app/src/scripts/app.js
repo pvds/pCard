@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pcard.triggers.contact.delete.addEventListener('click', () => deleteContact(pcard.triggers.contact.select));
     pcard.triggers.list.add.addEventListener('click', () => addContact());
     pcard.form.fields.image.addEventListener('change', () => processImage(pcard.form.fields.image));
-    pcard.list.searchInput.addEventListener('keyup', () => filterContactList());
+    pcard.list.searchInput.addEventListener('keyup', _.debounce(filterContactList, 400));
 
     /**
      * Theme functions
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleBetweenContacts();
     toggleFavorite();
     toggleToContactList();
-    filterContactList();
 
     /**
      * Helper listeners

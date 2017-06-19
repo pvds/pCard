@@ -114,3 +114,40 @@ const updateSetting = (name, value) => {
     const postScript = '/lib/ajax/save-settings.php';
     ajaxPost(postScript, JSONformData);
 };
+
+/**
+ * Validate contact form
+ *
+ * todo: validate entire form
+ * todo: make alert dynamic
+ **/
+const formValidation = (name) => {
+    const nameWrap = document.querySelector('#contact header');
+
+    if (name === '') {
+        const message = 'You could at least give your contact a name..';
+        setAlert(nameWrap, message, 'error');
+
+        return false;
+    }
+
+    return true;
+};
+
+/**
+ * Set alert snippet
+ **/
+const setAlert = (target, message, type) => {
+    // prepare new alert
+    const alertFragment = document.createDocumentFragment();
+    const alertItem = document.createElement('div');
+    const markup = `<p>${message}</p>`;
+
+    // add properties to alert
+    alertItem.setAttribute('class', `alert is-${type} is-centered`);
+    alertItem.innerHTML = markup;
+
+    // append list item to dom
+    alertFragment.appendChild(alertItem);
+    target.appendChild(alertFragment);
+};

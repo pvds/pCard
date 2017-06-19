@@ -1,0 +1,19 @@
+.alert{
+    background: darken($white, 10);
+    padding: $gutter-half;
+    margin-top: $gutter;
+    font-size: 1.2rem;
+    white-space: initial;
+    line-height: initial;
+    &.is-success{}
+    &.is-info{}
+    &.is-warning{}
+    &.is-error{
+        background-color: lighten($red, 65);
+        color: $red;
+    }
+
+    &.is-centered{
+        text-align: center;
+    }
+}

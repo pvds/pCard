@@ -141,17 +141,24 @@ const saveContact = (triggers, contactExists = true) => {
         favorite,
     };
 
-    /** post contact object */
-    const JSONformData = JSON.stringify(formData);
-    const postScript = contactExists ? '/lib/ajax/save-contact.php' : '/lib/ajax/add-contact.php';
-    const postType = contactExists ? 'edit' : 'add';
-    ajaxPost(postScript, JSONformData);
+    /** validate form */
+    const formValid = formValidation(name);
 
-    /** update state */
-    updateContactDataActions(phonePrivate, phoneWork, mailPrivate, mailWork);
-    toggleContactTriggers(triggers);
-    toggleReadWrite(false);
-    updateContactList(postType, id, name, image, favorite);
+    if (formValid) {
+        /** post contact object */
+        const JSONformData = JSON.stringify(formData);
+        const postScript = contactExists ? '/lib/ajax/save-contact.php' : '/lib/ajax/add-contact.php';
+        const postType = contactExists ? 'edit' : 'add';
+        ajaxPost(postScript, JSONformData);
+
+        /** update state */
+        updateContactDataActions(phonePrivate, phoneWork, mailPrivate, mailWork);
+        toggleContactTriggers(triggers);
+        toggleReadWrite(false);
+        updateContactList(postType, id, name, image, favorite);
+    }
+
+    return false;
 };
 
 /**

@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.viewportUnitsBuggyfill.init();
     mqClasses(pcard.vars.windowW);
     autogrow(pcard.form.fields.note);
+    striped();
 });
 
 window.addEventListener('resize', () => {

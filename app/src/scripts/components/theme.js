@@ -1,25 +1,18 @@
 /**
  * Set striped
- * todo: make multipurpose
- * todo: use pcard option variables
  **/
 const striped = () => {
-    const filterList = document.querySelector('#list ul');
-    const allItems = filterList.querySelectorAll('li');
-    const visibleItems = filterList.querySelectorAll('li:not(.is-hidden):not(.not-fav)');
+    const items = document.querySelectorAll(pcard.list.itemsQuery);
+    let count = 0;
 
     // remove previously added classes
-    allItems.forEach((item) => {
+    items.forEach((item) => {
         item.classList.remove('is-odd', 'is-even');
-    });
-
-    // add classes to visible items
-    visibleItems.forEach((visibleItem, i) => {
-        const count = i + 1;
-        if (count % 2 !== 0) {
-            visibleItem.classList.add('is-odd');
-        } else {
-            visibleItem.classList.add('is-even');
+        const isVisible = !item.classList.contains('is-hidden') && !item.classList.contains('not-fav');
+        if (isVisible) {
+            count++;
+            const stripedClass = count % 2 !== 0 ? 'is-odd' : 'is-even';
+            item.classList.add(stripedClass);
         }
     });
 };
